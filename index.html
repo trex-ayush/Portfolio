@@ -1,1689 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ayush Kumar Singh - Full-Stack Developer Portfolio">
-    <meta name="author" content="Ayush Kumar Singh">
     <title>Ayush Kumar Singh | Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Ayush Kumar Singh - Full Stack Developer">
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
 
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#E8E8E3',
+                        dark: '#080807',
+                        accent: '#8C8C73',
+                        secondary: '#6b645c',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    fontSize: {
+                        'hero': 'clamp(3.5rem, 15vw, 12rem)',
+                    },
+                    borderRadius: {
+                        '4xl': '2.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Styles -->
     <style>
-        :root {
-            --background: #09090b;
-            --foreground: #fafafa;
-            --card: #0a0a0c;
-            --card-foreground: #fafafa;
-            --primary: #3b82f6;
-            --primary-foreground: #fafafa;
-            --secondary: #18181b;
-            --secondary-foreground: #fafafa;
-            --muted: #27272a;
-            --muted-foreground: #a1a1aa;
-            --accent: #27272a;
-            --accent-foreground: #fafafa;
-            --border: #27272a;
-            --ring: #3b82f6;
-            --radius: 0.75rem;
-            --font-sans: 'Inter', system-ui, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: var(--font-sans);
-            background: var(--background);
-            color: var(--foreground);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            background-color: #E8E8E3;
+            color: #171717;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        /* Lenis Recommended CSS */
+        html.lenis,
+        html.lenis body {
+            height: auto;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
         }
 
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(9, 9, 11, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
         }
 
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--foreground);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-size: 0.875rem;
-            color: var(--muted-foreground);
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--foreground);
-        }
-
-        .nav-cta {
-            padding: 8px 16px;
-            background: var(--foreground);
-            color: var(--background);
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-        .nav-cta:hover {
-            opacity: 0.9;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .hamburger span {
-            width: 20px;
-            height: 2px;
-            background: var(--foreground);
-            transition: all 0.3s;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 0 80px;
-            position: relative;
+        .lenis.lenis-stopped {
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+        .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
 
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            color: var(--muted-foreground);
-            margin-bottom: 24px;
-        }
-
-        .hero-badge-dot {
-            width: 6px;
-            height: 6px;
-            background: #22c55e;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.125rem;
-            color: var(--muted-foreground);
-            margin-bottom: 20px;
-        }
-
-        .hero-description {
-            font-size: 0.95rem;
-            color: var(--muted-foreground);
-            max-width: 480px;
-            margin-bottom: 32px;
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--foreground);
-            color: var(--background);
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--foreground);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary);
-            border-color: var(--muted-foreground);
-        }
-
-        .hero-links {
-            display: flex;
-            gap: 12px;
-        }
-
-        .hero-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--muted-foreground);
-            transition: all 0.2s;
-        }
-
-        .hero-link:hover {
-            border-color: var(--foreground);
-            color: var(--foreground);
-            transform: translateY(-2px);
-        }
-
-        .hero-link svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Hero Visual */
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-        }
-
-        .hero-card {
-            width: 100%;
-            max-width: 380px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transform: rotateY(-5deg) rotateX(5deg);
-            transition: transform 0.5s ease;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        }
-
-        .hero-card:hover {
-            transform: rotateY(0deg) rotateX(0deg);
-        }
-
-        .hero-card-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            background: var(--secondary);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero-card-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .hero-card-dot.red { background: #ef4444; }
-        .hero-card-dot.yellow { background: #eab308; }
-        .hero-card-dot.green { background: #22c55e; }
-
-        .hero-card-content {
-            padding: 24px;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            line-height: 2;
-        }
-
-        .code-line {
-            margin-bottom: 4px;
-        }
-
-        .code-keyword { color: #c084fc; }
-        .code-function { color: #60a5fa; }
-        .code-string { color: #4ade80; }
-        .code-property { color: #f472b6; }
-        .code-bracket { color: var(--muted-foreground); }
-
-        /* Stats Section */
-        .stats {
-            padding: 80px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 32px 24px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            border-color: var(--muted-foreground);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .stat-value {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: var(--foreground);
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--muted-foreground);
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 100px 0;
-        }
-
-        .section-header {
-            margin-bottom: 48px;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        .section-description {
-            font-size: 0.95rem;
-            color: var(--muted-foreground);
-            max-width: 500px;
-        }
-
-        /* About Section */
-        .about {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: start;
-        }
-
-        .about-content p {
-            color: var(--muted-foreground);
-            margin-bottom: 16px;
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-
-        .about-highlights {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .highlight-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            transition: all 0.2s;
-        }
-
-        .highlight-item:hover {
-            border-color: var(--muted-foreground);
-            transform: translateX(4px);
-        }
-
-        .highlight-icon {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--background);
-            border-radius: 8px;
-            color: var(--primary);
-        }
-
-        .about-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transform: perspective(1000px) rotateY(5deg);
-            transition: transform 0.4s ease;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .about-card:hover {
-            transform: perspective(1000px) rotateY(0deg);
-        }
-
-        .terminal-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            background: var(--secondary);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .terminal-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .terminal-dot.red { background: #ef4444; }
-        .terminal-dot.yellow { background: #eab308; }
-        .terminal-dot.green { background: #22c55e; }
-
-        .terminal-content {
-            padding: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            line-height: 2;
-        }
-
-        .terminal-line {
-            margin-bottom: 4px;
-        }
-
-        .terminal-prompt { color: #22c55e; }
-        .terminal-command { color: var(--primary); }
-        .terminal-output { color: var(--muted-foreground); padding-left: 16px; }
-
-        /* Skills Section */
-        .skills {
-            background: var(--card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .skill-category {
-            padding: 24px;
-            background: var(--background);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            border-color: var(--muted-foreground);
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .skill-category-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--muted-foreground);
-        }
-
-        .skill-icon {
-            width: 18px;
-            height: 18px;
-            color: var(--primary);
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .skill-tag {
-            padding: 5px 10px;
-            background: var(--secondary);
-            border-radius: 6px;
-            font-size: 0.7rem;
-            color: var(--muted-foreground);
-            transition: all 0.2s;
-        }
-
-        .skill-tag:hover {
-            color: var(--foreground);
-            background: var(--muted);
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-
-        .project-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            border-color: var(--muted-foreground);
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-image {
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-image.study-portal {
-            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
-        }
-
-        .project-image.quick-court {
-            background: linear-gradient(135deg, #065f46 0%, #0f172a 100%);
-        }
-
-        .project-image.url-shortener {
-            background: linear-gradient(135deg, #7c3aed 0%, #0f172a 100%);
-        }
-
-        .project-image.devtinder {
-            background: linear-gradient(135deg, #be185d 0%, #0f172a 100%);
-        }
-
-        .project-visual {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            z-index: 1;
-            transition: all 0.4s ease;
-        }
-
-        .project-card:hover .project-visual {
-            transform: scale(1.05) translateY(-4px);
-        }
-
-        .project-visual-icon {
-            width: 72px;
-            height: 72px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            color: #fff;
-            transition: all 0.3s;
-        }
-
-        .project-card:hover .project-visual-icon {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-visual-icon svg {
-            width: 32px;
-            height: 32px;
-        }
-
-        .project-visual-mockup {
-            display: flex;
-            gap: 8px;
-        }
-
-        .mockup-window {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 8px;
-            backdrop-filter: blur(4px);
-        }
-
-        .mockup-header {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 6px;
-        }
-
-        .mockup-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .mockup-dot.red { background: #ef4444; }
-        .mockup-dot.yellow { background: #eab308; }
-        .mockup-dot.green { background: #22c55e; }
-
-        .mockup-content {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .mockup-line {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-        }
-
-        .mockup-line.short { width: 40px; }
-        .mockup-line.medium { width: 60px; }
-        .mockup-line.long { width: 80px; }
-
-        .project-image-pattern {
-            position: absolute;
-            inset: 0;
-            opacity: 0.1;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .project-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(9, 9, 11, 0.5);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
+        /* Utilities */
+        .clip-text span {
+            display: inline-block;
+            transform: translateY(100%);
             opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 10;
+            will-change: transform, opacity;
         }
 
-        .project-card:hover .project-overlay {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .project-link {
-            padding: 10px 18px;
-            background: var(--foreground);
-            color: var(--background);
-            border-radius: var(--radius);
-            font-size: 0.75rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .project-link:hover {
-            opacity: 0.9;
-        }
-
-        .project-link.secondary {
-            background: transparent;
-            color: var(--foreground);
-            border: 1px solid var(--border);
-        }
-
-        .project-link.secondary:hover {
-            border-color: var(--foreground);
-        }
-
-        .project-content {
-            padding: 24px;
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .project-tag {
-            padding: 4px 10px;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: 6px;
-            font-size: 0.65rem;
-            color: var(--primary);
-            font-weight: 500;
-        }
-
-        .project-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .project-description {
-            font-size: 0.8rem;
-            color: var(--muted-foreground);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .project-tech span {
-            padding: 4px 8px;
-            background: var(--secondary);
-            border-radius: 4px;
-            font-size: 0.65rem;
-            color: var(--muted-foreground);
-        }
-
-        /* Profiles Section */
-        .profiles {
-            background: var(--card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .profiles-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .profile-card {
-            padding: 32px 24px;
-            background: var(--background);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .profile-card:hover {
-            border-color: var(--muted-foreground);
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile-icon {
-            width: 52px;
-            height: 52px;
-            margin: 0 auto 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-        }
-
-        .profile-card.github .profile-icon { background: #1f2937; color: var(--foreground); }
-        .profile-card.linkedin .profile-icon { background: #1d4ed8; color: var(--foreground); }
-        .profile-card.leetcode .profile-icon { background: #f59e0b; color: var(--background); }
-
-        .profile-name {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .profile-username {
-            font-size: 0.75rem;
-            color: var(--muted-foreground);
-            font-family: var(--font-mono);
-            margin-bottom: 16px;
-        }
-
-        .profile-stats {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            padding: 16px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 16px;
-        }
-
-        .profile-stat-value {
-            font-size: 1.125rem;
-            font-weight: 700;
-        }
-
-        .profile-stat-label {
-            font-size: 0.65rem;
-            color: var(--muted-foreground);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .profile-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .profile-link:hover {
-            background: var(--muted);
-            border-color: var(--muted-foreground);
-        }
-
-        /* Contact Section */
-        .contact {
-            text-align: center;
-        }
-
-        .contact .section-header {
-            max-width: 500px;
-            margin: 0 auto 40px;
-        }
-
-        .contact .section-description {
-            margin: 0 auto;
-        }
-
-        .contact-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 32px;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 32px;
-            transition: all 0.2s;
-        }
-
-        .contact-email:hover {
-            border-color: var(--muted-foreground);
-            transform: translateY(-2px);
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .contact-link {
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--muted-foreground);
-            transition: all 0.2s;
-        }
-
-        .contact-link:hover {
-            border-color: var(--foreground);
-            color: var(--foreground);
-            transform: translateY(-2px);
-        }
-
-        .contact-link svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Footer */
-        .footer {
-            padding: 32px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .footer-text {
-            font-size: 0.8rem;
-            color: var(--muted-foreground);
-        }
-
-        /* Scroll to Top */
-        .scroll-top {
+        .loader-overlay {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 44px;
-            height: 44px;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: var(--foreground);
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s;
+            inset: 0;
+            background: #080807;
+            z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-top:hover {
-            background: var(--muted);
-            border-color: var(--muted-foreground);
-            transform: translateY(-2px);
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 48px;
-            }
-
-            .hero-visual {
-                order: -1;
-            }
-
-            .hero-card {
-                transform: none;
-                max-width: 320px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 48px;
-            }
-
-            .about-card {
-                transform: none;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .profiles-grid {
-                grid-template-columns: 1fr;
-                max-width: 360px;
-                margin: 0 auto;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links, .nav-cta {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links.active {
-                display: flex;
-                position: fixed;
-                top: 64px;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: var(--background);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 24px;
-            }
-
-            .hero {
-                padding: 100px 0 60px;
-            }
-
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .stats-grid, .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-highlights {
-                grid-template-columns: 1fr;
-            }
+            color: #E8E8E3;
+            transform-origin: top;
         }
     </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">Ayush Kumar Singh</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#profiles">Profiles</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a href="#contact" class="nav-cta">Get in Touch</a>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge fade-in">
-                        <span class="hero-badge-dot"></span>
-                        Open for opportunities
-                    </div>
-                    <h1 class="hero-title fade-in">Ayush Kumar Singh</h1>
-                    <p class="hero-subtitle fade-in">Full-Stack Developer | MERN Stack Specialist</p>
-                    <p class="hero-description fade-in">
-                        B.Tech CSE at VIT Bhopal with 8.5 CGPA. Former Full-Stack Developer Intern at Bluestock Fintech.
-                        Odoo Hackathon 2025 Finalist among 19,000+ participants.
-                    </p>
-                    <div class="hero-buttons fade-in">
-                        <a href="#projects" class="btn btn-primary">
-                            View Projects
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
-                    </div>
-                    <div class="hero-links fade-in">
-                        <a href="https://github.com/trex-ayush" target="_blank" class="hero-link" title="GitHub">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                        </a>
-                        <a href="https://www.linkedin.com/in/ayush-kumar-singh-677388250/" target="_blank" class="hero-link" title="LinkedIn">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        </a>
-                        <a href="https://leetcode.com/u/ayushsingh03/" target="_blank" class="hero-link" title="LeetCode">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="hero-visual fade-in">
-                    <div class="hero-card">
-                        <div class="hero-card-header">
-                            <span class="hero-card-dot red"></span>
-                            <span class="hero-card-dot yellow"></span>
-                            <span class="hero-card-dot green"></span>
-                        </div>
-                        <div class="hero-card-content">
-                            <div class="code-line"><span class="code-keyword">const</span> <span class="code-function">developer</span> <span class="code-bracket">=</span> <span class="code-bracket">{</span></div>
-                            <div class="code-line">  <span class="code-property">name</span>: <span class="code-string">"Ayush Kumar Singh"</span>,</div>
-                            <div class="code-line">  <span class="code-property">role</span>: <span class="code-string">"Full-Stack Developer"</span>,</div>
-                            <div class="code-line">  <span class="code-property">stack</span>: <span class="code-string">"MERN"</span>,</div>
-                            <div class="code-line">  <span class="code-property">education</span>: <span class="code-string">"VIT Bhopal"</span>,</div>
-                            <div class="code-line">  <span class="code-property">cgpa</span>: <span class="code-string">8.5</span>,</div>
-                            <div class="code-line">  <span class="code-property">status</span>: <span class="code-string">"Open to work"</span></div>
-                            <div class="code-line"><span class="code-bracket">}</span>;</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<body class="antialiased">
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card fade-in">
-                    <div class="stat-value">8.5</div>
-                    <div class="stat-label">CGPA at VIT Bhopal</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="stat-value">450+</div>
-                    <div class="stat-label">DSA Problems Solved</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="stat-value">4+</div>
-                    <div class="stat-label">Major Projects</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="stat-value">19K+</div>
-                    <div class="stat-label">Beat in Hackathon</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Loader -->
+    <div class="loader-overlay fixed inset-0 bg-black z-50 flex items-center justify-center">
+        <!-- Text removed as requested -->
+    </div>
 
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <div class="section-header">
-                        <p class="section-label">About</p>
-                        <h2 class="section-title">Full-Stack Developer</h2>
-                        <p class="section-description">Building scalable applications with modern technologies</p>
-                    </div>
-                    <p class="fade-in">
-                        I'm a B.Tech CSE student at Vellore Institute of Technology, Bhopal with an 8.5 CGPA.
-                        As a former Full-Stack Developer Intern at Bluestock Fintech, I engineered IPO data
-                        dashboards and implemented secure authentication systems using the MERN stack.
-                    </p>
-                    <p class="fade-in">
-                        Selected as Odoo Hackathon 2025 Finalist among 19,000+ participants for building
-                        Quick Court - a sports venue booking platform. Ranked among top coders at VIT campus
-                        with 15,000+ students.
-                    </p>
-                    <div class="about-highlights">
-                        <div class="highlight-item fade-in">
-                            <div class="highlight-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            </div>
-                            <span>Problem Solver</span>
-                        </div>
-                        <div class="highlight-item fade-in">
-                            <div class="highlight-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                            </div>
-                            <span>Quick Learner</span>
-                        </div>
-                        <div class="highlight-item fade-in">
-                            <div class="highlight-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
-                            <span>Team Player</span>
-                        </div>
-                        <div class="highlight-item fade-in">
-                            <div class="highlight-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                            </div>
-                            <span>Clean Code</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-card fade-in">
-                    <div class="terminal-header">
-                        <span class="terminal-dot red"></span>
-                        <span class="terminal-dot yellow"></span>
-                        <span class="terminal-dot green"></span>
-                    </div>
-                    <div class="terminal-content">
-                        <div class="terminal-line"><span class="terminal-prompt">~</span><span class="terminal-command"> whoami</span></div>
-                        <div class="terminal-output">Ayush Kumar Singh</div>
-                        <div class="terminal-line"><span class="terminal-prompt">~</span><span class="terminal-command"> cat education.txt</span></div>
-                        <div class="terminal-output">VIT Bhopal | B.Tech CSE | 8.5 CGPA</div>
-                        <div class="terminal-line"><span class="terminal-prompt">~</span><span class="terminal-command"> cat experience.txt</span></div>
-                        <div class="terminal-output">Bluestock Fintech | MERN Stack Intern</div>
-                        <div class="terminal-line"><span class="terminal-prompt">~</span><span class="terminal-command"> echo $ACHIEVEMENT</span></div>
-                        <div class="terminal-output">Odoo Hackathon 2025 Finalist</div>
-                    </div>
-                </div>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50 p-6 md:p-8 mix-blend-difference text-[#E8E8E3]">
+        <div class="flex justify-between items-center max-w-[1920px] mx-auto">
+            <div class="font-mono text-xs md:text-sm uppercase tracking-widest opacity-0 header-item">
+                Ayush Kumar Singh
             </div>
+            <nav
+                class="hidden md:flex gap-8 font-mono text-xs md:text-sm uppercase tracking-widest opacity-0 header-item">
+                <a href="#services" class="hover:text-accent transition-colors">Services</a>
+                <a href="#works" class="hover:text-accent transition-colors">Works</a>
+                <a href="#about" class="hover:text-accent transition-colors">About</a>
+                <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
+            </nav>
+            <div class="md:hidden font-mono text-xs uppercase opacity-0 header-item">MENU</div>
         </div>
-    </section>
+    </header>
 
-    <!-- Skills Section -->
-    <section class="section skills" id="skills">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-label">Skills</p>
-                <h2 class="section-title">Tech Stack</h2>
-                <p class="section-description">Technologies and tools I work with</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-category fade-in">
-                    <h3 class="skill-category-title">
-                        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                        Languages
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">JavaScript (ES6+)</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">SQL</span>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h3 class="skill-category-title">
-                        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                        Frontend
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">React.js</span>
-                        <span class="skill-tag">Tailwind CSS</span>
-                        <span class="skill-tag">HTML5</span>
-                        <span class="skill-tag">CSS3</span>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h3 class="skill-category-title">
-                        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                        Backend
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express.js</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">MySQL</span>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h3 class="skill-category-title">
-                        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                        Tools
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">Postman</span>
-                        <span class="skill-tag">JWT</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <main>
 
-    <!-- Projects Section -->
-    <section class="section projects" id="projects">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-label">Projects</p>
-                <h2 class="section-title">Featured Work</h2>
-                <p class="section-description">Real-world applications built with modern technologies</p>
+        <!-- Hero Section -->
+        <section class="h-[100svh] w-full flex flex-col justify-center items-center relative px-4">
+
+            <div
+                class="absolute top-[120px] left-0 w-full px-6 md:px-12 flex justify-between items-start font-mono text-xs text-secondary uppercase z-0">
+                <span class="opacity-0 hero-meta">Web Developer</span>
+                <span class="opacity-0 hero-meta text-right">Based in India<br>Available Worldwide</span>
             </div>
-            <div class="projects-grid">
-                <!-- Study Portal -->
-                <div class="project-card fade-in">
-                    <div class="project-image study-portal">
-                        <div class="project-image-pattern"></div>
-                        <div class="project-visual">
-                            <div class="project-visual-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
-                                </svg>
-                            </div>
-                            <div class="project-visual-mockup">
-                                <div class="mockup-window">
-                                    <div class="mockup-header">
-                                        <span class="mockup-dot red"></span>
-                                        <span class="mockup-dot yellow"></span>
-                                        <span class="mockup-dot green"></span>
+
+            <!-- Huge Text -->
+            <div class="relative z-10 text-center leading-[0.8] tracking-tighter mix-blend-exclusion">
+                <h1 class="font-bold text-hero uppercase text-[#171717] flex justify-center overflow-hidden clip-text"
+                    id="hero-first">
+                    <span>A</span><span>y</span><span>u</span><span>s</span><span>h</span>
+                </h1>
+                <h1 class="font-bold text-hero uppercase text-[#171717] flex justify-center overflow-hidden clip-text"
+                    id="hero-last">
+                    <span>S</span><span>i</span><span>n</span><span>g</span><span>h</span>
+                </h1>
+            </div>
+
+            <!-- Centered Image Placeholder -->
+            <div class="mt-8 md:mt-[-4vw] relative w-64 md:w-[22vw] aspect-[3/4] bg-[#b0b0b0] rounded-lg overflow-hidden scale-0 opacity-0 group"
+                id="hero-image">
+                <img src="./pexels-sophors-25437427.jpg" alt="Abstract Hero Art"
+                    class="absolute inset-0 w-full h-full object-cover grayscale brightness-110 contrast-110 group-hover:scale-105 transition-transform duration-700 ease-out">
+            </div>
+
+            <div class="absolute bottom-12 w-full px-6 md:px-12 flex justify-between items-end">
+                <div class="max-w-xs font-medium text-sm md:text-base leading-snug opacity-0 hero-meta">
+                    Turning ideas into clean, intuitive digital experiences with modern tech stacks.
+                </div>
+                <div class="text-right opacity-0 hero-meta">
+                    <span class="block font-mono text-xs uppercase text-accent mb-1">Status</span>
+                    <span class="text-3xl md:text-5xl font-bold uppercase tracking-tight">OPEN</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Island / Dark Section -->
+        <div
+            class="bg-dark text-[#E8E8E3] rounded-t-4xl relative z-10 pt-24 md:pt-32 pb-24 shadow-[0_-20px_40px_rgba(0,0,0,0.1)]">
+
+            <!-- Use fluid grid -->
+            <div class="max-w-[1800px] mx-auto px-6 md:px-12">
+
+                <!-- Services -->
+                <section id="services" class="mb-32 md:mb-48">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-12">
+                        <div class="col-span-12 md:col-span-5">
+                            <h2
+                                class="text-5xl md:text-8xl font-bold uppercase tracking-tighter text-accent leading-[0.9]">
+                                What I<br>Can Do
+                            </h2>
+                        </div>
+                        <div class="col-span-12 md:col-span-7 flex flex-col gap-16 pt-4">
+                            <!-- S1 -->
+                            <div class="group border-t border-white/10 pt-6">
+                                <div class="flex justify-between items-baseline mb-8">
+                                    <h3
+                                        class="text-4xl md:text-5xl font-semibold uppercase group-hover:text-accent transition-colors">
+                                        Full-Stack Development</h3>
+                                    <span class="font-mono text-xs text-secondary">(01)</span>
+                                </div>
+                                <p class="text-secondary text-lg max-w-xl mb-8">
+                                    From frontend interactions to backend APIs, I build complete web solutions. I work
+                                    with modern stacks to deliver apps that are scalable, maintainable, and ready for
+                                    real-world users.
+                                </p>
+                                <div class="border-t border-white/5 divide-y divide-white/5">
+                                    <div class="py-4 flex items-center gap-6">
+                                        <span class="font-mono text-xs text-secondary">01</span>
+                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">React, Node.js,
+                                            Express.js</span>
                                     </div>
-                                    <div class="mockup-content">
-                                        <div class="mockup-line long"></div>
-                                        <div class="mockup-line medium"></div>
-                                        <div class="mockup-line short"></div>
+                                    <div class="py-4 flex items-center gap-6">
+                                        <span class="font-mono text-xs text-secondary">02</span>
+                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">REST APIs,
+                                            MongoDB</span>
+                                    </div>
+                                    <div class="py-4 flex items-center gap-6">
+                                        <span class="font-mono text-xs text-secondary">03</span>
+                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">Git, GitHub,
+                                            Postman</span>
                                     </div>
                                 </div>
-                                <div class="mockup-window">
-                                    <div class="mockup-header">
-                                        <span class="mockup-dot red"></span>
-                                        <span class="mockup-dot yellow"></span>
-                                        <span class="mockup-dot green"></span>
+                            </div>
+                            <!-- S2 -->
+                            <div class="group border-t border-white/10 pt-6">
+                                <div class="flex justify-between items-baseline mb-8">
+                                    <h3
+                                        class="text-4xl md:text-5xl font-semibold uppercase group-hover:text-accent transition-colors">
+                                        Optimization & CS</h3>
+                                    <span class="font-mono text-xs text-secondary">(02)</span>
+                                </div>
+                                <p class="text-secondary text-lg max-w-xl mb-8">
+                                    Beyond handling data, I’m driven by the challenge of turning complex raw inputs into
+                                    reliable, usable systems. I enjoy designing pipelines that power insights and apply
+                                    core CS principles to build for scale, speed, and stability.
+                                </p>
+                                <div class="border-t border-white/5 divide-y divide-white/5">
+                                    <div class="py-4 flex items-center gap-6">
+                                        <span class="font-mono text-xs text-secondary">01</span>
+                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">Data Structures &
+                                            Algorithms</span>
                                     </div>
-                                    <div class="mockup-content">
-                                        <div class="mockup-line short"></div>
-                                        <div class="mockup-line long"></div>
-                                        <div class="mockup-line medium"></div>
+                                    <div class="py-4 flex items-center gap-6">
+                                        <span class="font-mono text-xs text-secondary">02</span>
+                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">DBMS, OOP, OS
+                                            Fundamentals</span>
+                                    </div>
+                                    <div class="py-4 flex items-center gap-6">
+                                        <span class="font-mono text-xs text-secondary">03</span>
+                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">Scalability &
+                                            Performance</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="project-overlay">
-                            <a href="https://study-portal-frontend.onrender.com/" target="_blank" class="project-link">Live Demo</a>
-                            <a href="https://github.com/trex-ayush" target="_blank" class="project-link secondary">Code</a>
-                        </div>
                     </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Full-Stack</span>
-                            <span class="project-tag">MERN</span>
-                        </div>
-                        <h3 class="project-title">Study Portal Platform</h3>
-                        <p class="project-description">
-                            Learning management system with courses, video lectures, quizzes, and progress tracking.
-                            Features admin dashboard and role-based access control.
-                        </p>
-                        <div class="project-tech">
-                            <span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>JWT</span>
-                        </div>
-                    </div>
-                </div>
+                </section>
 
-                <!-- Quick Court -->
-                <div class="project-card fade-in">
-                    <div class="project-image quick-court">
-                        <div class="project-image-pattern"></div>
-                        <div class="project-visual">
-                            <div class="project-visual-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
-                                    <path d="M12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 17.25a.75.75 0 110-1.5.75.75 0 010 1.5zM8.25 14.25a.75.75 0 110-1.5.75.75 0 010 1.5zM15.75 14.25a.75.75 0 110-1.5.75.75 0 010 1.5z"/>
-                                </svg>
-                            </div>
-                            <div class="project-visual-mockup">
-                                <div class="mockup-window" style="width: 100px;">
-                                    <div class="mockup-header">
-                                        <span class="mockup-dot red"></span>
-                                        <span class="mockup-dot yellow"></span>
-                                        <span class="mockup-dot green"></span>
-                                    </div>
-                                    <div class="mockup-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
-                                        <div class="mockup-line" style="width: 100%; height: 20px; border-radius: 4px;"></div>
-                                        <div class="mockup-line" style="width: 100%; height: 20px; border-radius: 4px;"></div>
-                                        <div class="mockup-line" style="width: 100%; height: 20px; border-radius: 4px;"></div>
-                                        <div class="mockup-line" style="width: 100%; height: 20px; border-radius: 4px;"></div>
+                <!-- Sticky Works Section -->
+                <section id="works" class="mb-32">
+                    <div class="flex flex-col md:flex-row gap-12">
+
+                        <!-- Sticky Sidebar -->
+                        <div class="hidden md:block w-48 relative">
+                            <div class="sticky top-[40vh]">
+                                <div
+                                    class="text-[8rem] leading-none font-bold text-white/10 relative overflow-hidden h-[1em] w-full">
+                                    <!-- The Sliding Tape -->
+                                    <div class="absolute left-0 top-0 flex flex-col transition-transform duration-500 ease-out"
+                                        id="number-tape">
+                                        <span>01</span>
+                                        <span>02</span>
+                                        <span>03</span>
+                                        <span>04</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="project-overlay">
-                            <a href="https://quick-court-mx6r.onrender.com/" target="_blank" class="project-link">Live Demo</a>
-                            <a href="https://github.com/trex-ayush" target="_blank" class="project-link secondary">Code</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Hackathon Finalist</span>
-                            <span class="project-tag">MERN</span>
-                        </div>
-                        <h3 class="project-title">Quick Court - Sports Booking</h3>
-                        <p class="project-description">
-                            Sports venue booking platform. Finalist among 19,000+ in Odoo Hackathon 2025.
-                            JWT auth, Cloudinary, 40% faster media load.
-                        </p>
-                        <div class="project-tech">
-                            <span>React</span><span>Node.js</span><span>MongoDB</span><span>Cloudinary</span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- URL Shortener -->
-                <div class="project-card fade-in">
-                    <div class="project-image url-shortener">
-                        <div class="project-image-pattern"></div>
-                        <div class="project-visual">
-                            <div class="project-visual-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/>
-                                </svg>
-                            </div>
-                            <div class="project-visual-mockup">
-                                <div class="mockup-window" style="width: 120px;">
-                                    <div class="mockup-header">
-                                        <span class="mockup-dot red"></span>
-                                        <span class="mockup-dot yellow"></span>
-                                        <span class="mockup-dot green"></span>
+                        <!-- Projects List -->
+                        <div class="flex-1 flex flex-col gap-32 md:gap-48 pt-12">
+
+                            <!-- P2 (Now P1) -->
+                            <div class="project-item group" data-id="1">
+                                <a href="https://quick-court-mx6r.onrender.com/" target="_blank" class="block">
+                                    <div
+                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-8 relative group-hover:border-accent/40 transition-colors z-10">
+                                        <img src="./project_quick_court.png" alt="Quick Court Interface"
+                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out parallax-img">
                                     </div>
-                                    <div class="mockup-content" style="align-items: center;">
-                                        <div class="mockup-line" style="width: 100%; height: 8px; border-radius: 4px;"></div>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" style="margin: 4px 0;">
-                                            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-                                        </svg>
-                                        <div class="mockup-line" style="width: 50%; height: 8px; border-radius: 4px; background: rgba(124, 58, 237, 0.5);"></div>
+                                    <div class="flex justify-between items-start relative z-20">
+                                        <div>
+                                            <h3
+                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
+                                                Quick Court</h3>
+                                            <p class="font-mono text-sm text-secondary">Venue Booking System</p>
+                                        </div>
+                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
+                                            2025</div>
                                     </div>
-                                </div>
+                                </a>
+                            </div>
+
+                            <!-- P1 (Now P2) -->
+                            <div class="project-item group" data-id="2">
+                                <a href="https://study-portal-frontend.onrender.com/" target="_blank" class="block">
+                                    <div
+                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-8 relative group-hover:border-accent/40 transition-colors z-10">
+                                        <img src="./project_study_portal.png" alt="Study Portal Interface"
+                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out parallax-img">
+                                    </div>
+                                    <div class="flex justify-between items-start relative z-20">
+                                        <div>
+                                            <h3
+                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
+                                                Study Portal</h3>
+                                            <p class="font-mono text-sm text-secondary">LMS Platform</p>
+                                        </div>
+                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
+                                            2025</div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- P3 -->
+                            <div class="project-item group" data-id="3">
+                                <a href="https://github.com/trex-ayush" target="_blank" class="block">
+                                    <div
+                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-6 relative group-hover:border-accent/40 transition-colors">
+                                        <img src="./project_url_shortener.png" alt="URL Shortener Dashboard"
+                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                                    </div>
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3
+                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
+                                                Shortener</h3>
+                                            <p class="font-mono text-sm text-secondary">High Scale System</p>
+                                        </div>
+                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
+                                            2024</div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- P4 -->
+                            <div class="project-item group" data-id="4">
+                                <a href="https://github.com/trex-ayush" target="_blank" class="block">
+                                    <div
+                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-6 relative group-hover:border-accent/40 transition-colors">
+                                        <img src="./project_devtinder.png" alt="DevTinder Code"
+                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                                    </div>
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3
+                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
+                                                DevTinder</h3>
+                                            <p class="font-mono text-sm text-secondary">Social Backend</p>
+                                        </div>
+                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
+                                            2024</div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="project-overlay">
-                            <a href="https://github.com/trex-ayush" target="_blank" class="project-link">View Code</a>
-                        </div>
                     </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Backend</span>
-                            <span class="project-tag">99.8% Uptime</span>
-                        </div>
-                        <h3 class="project-title">URL Shortener Service</h3>
-                        <p class="project-description">
-                            Scalable URL shortening with analytics. Processes 500+ daily URLs with 99.8% uptime.
-                            Rate limiting, 30% faster response.
-                        </p>
-                        <div class="project-tech">
-                            <span>Node.js</span><span>Express</span><span>MongoDB</span><span>REST APIs</span>
-                        </div>
-                    </div>
-                </div>
+                </section>
 
-                <!-- Devtinder -->
-                <div class="project-card fade-in">
-                    <div class="project-image devtinder">
-                        <div class="project-image-pattern"></div>
-                        <div class="project-visual">
-                            <div class="project-visual-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
-                                </svg>
+                <!-- Skills / About -->
+                <section id="about" class="mb-32 pt-24 border-t border-white/10">
+                    <h2 class="text-[10vw] font-bold uppercase text-center opacity-10 leading-none mb-12">Expertise</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
+                            <span class="font-mono text-xs text-accent block mb-4">LANG</span>
+                            <div class="text-xl font-medium">JS / TS <br> C++ <br> SQL</div>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
+                            <span class="font-mono text-xs text-accent block mb-4">WEB</span>
+                            <div class="text-xl font-medium">React <br> Next.js <br> Tailwind</div>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
+                            <span class="font-mono text-xs text-accent block mb-4">BACK</span>
+                            <div class="text-xl font-medium">Node <br> Express <br> Mongo</div>
+                        </div>
+                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
+                            <span class="font-mono text-xs text-accent block mb-4">TOOLS</span>
+                            <div class="text-xl font-medium">Git <br> GitHub <br> Postman</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer id="contact" class="pb-12">
+                    <div class="relative bg-white/5 rounded-[2rem] p-8 md:p-24 overflow-hidden text-center group">
+                        <div
+                            class="absolute inset-0 bg-accent/20 scale-y-0 group-hover:scale-y-100 transition-transform duration-700 origin-bottom ease-[cubic-bezier(0.22,1,0.36,1)]">
+                        </div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-5xl md:text-8xl font-bold uppercase mb-8">Let's Talk</h2>
+                            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-12">
+                                <a href="mailto:singhayush.sa81@gmail.com"
+                                    class="px-8 py-3 bg-[#E8E8E3] text-dark rounded-full font-bold uppercase hover:scale-105 transition-transform">Email
+                                    Me</a>
+                                <a href="https://linkedin.com/in/ayush-kumar-singh-677388250/" target="_blank"
+                                    class="px-8 py-3 border border-white/20 rounded-full font-bold uppercase hover:bg-white/10 transition-colors">LinkedIn</a>
                             </div>
-                            <div class="project-visual-mockup" style="gap: 12px;">
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                                    <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3);"></div>
-                                    <div class="mockup-line" style="width: 24px;"></div>
-                                </div>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2">
-                                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                </svg>
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                                    <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3);"></div>
-                                    <div class="mockup-line" style="width: 24px;"></div>
-                                </div>
+
+                            <!-- Additional Socials -->
+                            <div class="flex flex-wrap justify-center gap-8 mb-16">
+                                <!-- GitHub -->
+                                <a href="https://github.com/trex-ayush" target="_blank"
+                                    class="group flex items-center gap-2 text-secondary hover:text-accent transition-colors">
+                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                                    </svg>
+                                    <span class="font-mono text-sm uppercase tracking-wider">GitHub</span>
+                                </a>
+
+                                <!-- LeetCode -->
+                                <a href="https://leetcode.com/ayushsingh03" target="_blank"
+                                    class="group flex items-center gap-2 text-secondary hover:text-[#FFA116] transition-colors">
+                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.843 5.843 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
+                                    </svg>
+                                    <span class="font-mono text-sm uppercase tracking-wider">LeetCode</span>
+                                </a>
+
+                                <!-- GeeksForGeeks (Simple code icon representation or G) -->
+                                <a href="https://auth.geeksforgeeks.org/user/singhayul1ly/" target="_blank"
+                                    class="group flex items-center gap-2 text-secondary hover:text-[#2F8D46] transition-colors">
+                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm-1 16H9v-2h2v2zm-2-5H6v-2h3v2zm5-1v2h-1v-2h1zm-1-3h-2V5h2v2zm4 4h-3v-2h3v2zm-4 5h-2v-2h2v2z" />
+                                    </svg>
+                                    <span class="font-mono text-sm uppercase tracking-wider">GFG</span>
+                                </a>
+                            </div>
+
+                            <div class="font-mono text-xs text-secondary uppercase">
+                                © 2026 Ayush Kumar Singh
                             </div>
                         </div>
-                        <div class="project-overlay">
-                            <a href="https://github.com/trex-ayush" target="_blank" class="project-link">View Code</a>
-                        </div>
                     </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Backend</span>
-                            <span class="project-tag">Social</span>
-                        </div>
-                        <h3 class="project-title">Devtinder - Developer Network</h3>
-                        <p class="project-description">
-                            Social networking backend with matching algorithm. 1.2s average response through
-                            optimized data structures.
-                        </p>
-                        <div class="project-tech">
-                            <span>Node.js</span><span>Express</span><span>MongoDB</span>
-                        </div>
-                    </div>
-                </div>
+                </footer>
+
             </div>
         </div>
-    </section>
 
-    <!-- Profiles Section -->
-    <section class="section profiles" id="profiles">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-label">Profiles</p>
-                <h2 class="section-title">Find Me Online</h2>
-                <p class="section-description">Connect with me on these platforms</p>
-            </div>
-            <div class="profiles-grid">
-                <div class="profile-card github fade-in">
-                    <div class="profile-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    </div>
-                    <h3 class="profile-name">GitHub</h3>
-                    <p class="profile-username">@trex-ayush</p>
-                    <div class="profile-stats">
-                        <div><div class="profile-stat-value">20+</div><div class="profile-stat-label">Repos</div></div>
-                        <div><div class="profile-stat-value">Active</div><div class="profile-stat-label">Status</div></div>
-                    </div>
-                    <a href="https://github.com/trex-ayush" target="_blank" class="profile-link">View Profile</a>
-                </div>
+    </main>
 
-                <div class="profile-card linkedin fade-in">
-                    <div class="profile-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </div>
-                    <h3 class="profile-name">LinkedIn</h3>
-                    <p class="profile-username">Ayush Kumar Singh</p>
-                    <div class="profile-stats">
-                        <div><div class="profile-stat-value">500+</div><div class="profile-stat-label">Connections</div></div>
-                        <div><div class="profile-stat-value">Open</div><div class="profile-stat-label">To Work</div></div>
-                    </div>
-                    <a href="https://www.linkedin.com/in/ayush-kumar-singh-677388250/" target="_blank" class="profile-link">Connect</a>
-                </div>
-
-                <div class="profile-card leetcode fade-in">
-                    <div class="profile-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
-                    </div>
-                    <h3 class="profile-name">LeetCode</h3>
-                    <p class="profile-username">@ayushsingh03</p>
-                    <div class="profile-stats">
-                        <div><div class="profile-stat-value">500+</div><div class="profile-stat-label">Solved</div></div>
-                        <div><div class="profile-stat-value">Top</div><div class="profile-stat-label">Ranked</div></div>
-                    </div>
-                    <a href="https://leetcode.com/u/ayushsingh03/" target="_blank" class="profile-link">View Stats</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-label">Contact</p>
-                <h2 class="section-title">Get in Touch</h2>
-                <p class="section-description">Have a project in mind? Feel free to reach out.</p>
-            </div>
-            <a href="mailto:singhayush.sa81@gmail.com" class="contact-email fade-in">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                singhayush.sa81@gmail.com
-            </a>
-            <div class="contact-links fade-in">
-                <a href="https://github.com/trex-ayush" target="_blank" class="contact-link" title="GitHub">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                </a>
-                <a href="https://www.linkedin.com/in/ayush-kumar-singh-677388250/" target="_blank" class="contact-link" title="LinkedIn">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
-                <a href="https://leetcode.com/u/ayushsingh03/" target="_blank" class="contact-link" title="LeetCode">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">Designed & Built by Ayush Kumar Singh</p>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top -->
-    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
-    </button>
+    <!-- Scripts -->
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Lenis -->
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        const scrollTop = document.getElementById('scrollTop');
-
-        hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => navLinks.classList.remove('active'));
+        // 1. Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true
         });
 
-        window.addEventListener('scroll', () => {
-            scrollTop.classList.toggle('visible', window.scrollY > 500);
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Connect Lenis to ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Initial Loader & Hero Animation
+        const tl = gsap.timeline();
+
+        // Stagger characters in Loader then clear it
+        tl.to('.loader-overlay', {
+            yPercent: -150,
+            borderBottomLeftRadius: '50% 30%',
+            borderBottomRightRadius: '50% 30%',
+            duration: 1, // Slightly smoother for the curve
+            ease: "power4.inOut",
+            delay: 0.2,
+            onComplete: () => {
+                document.querySelector('.loader-overlay').style.display = 'none';
+            }
         });
 
-        scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        // Animate Hero Text (Characters)
+        tl.to('#hero-first span', {
+            y: 0,
+            opacity: 1,
+            stagger: 0.05,
+            duration: 1,
+            ease: "power4.out"
+        }, "-=0.6");
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+        tl.to('#hero-last span', {
+            y: 0,
+            opacity: 1,
+            stagger: 0.05,
+            duration: 1,
+            ease: "power4.out"
+        }, "-=0.8");
+
+        // Animate Hero Image and Meta
+        tl.to('#hero-image', {
+            scale: 1,
+            opacity: 1,
+            duration: 1.5,
+            ease: "expo.out"
+        }, "-=0.8");
+
+        tl.to('.hero-meta', {
+            opacity: 0.6,
+            y: 0,
+            duration: 1,
+        }, "-=0.8");
+
+        tl.to('.header-item', {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1
+        }, "-=0.8");
+
+
+        // 3. Sticky Number Tape Logic
+
+        const projects = document.querySelectorAll('.project-item');
+        const tape = document.getElementById('number-tape');
+
+        // Fix: logic was doing -100% of the *entire tape height*. 
+        // We want -100% of *one item's height* (which is 1/total * 100 percent of total height).
+        const step = 100 / projects.length;
+
+        projects.forEach((wb, i) => {
+            ScrollTrigger.create({
+                trigger: wb,
+                start: "top 60%",
+                end: "bottom 60%",
+                onEnter: () => {
+                    gsap.to(tape, {
+                        yPercent: -i * step,
+                        duration: 0.4,
+                        ease: "power3.out",
+                        overwrite: true
+                    });
+                },
+                onEnterBack: () => {
+                    gsap.to(tape, {
+                        yPercent: -i * step,
+                        duration: 0.4,
+                        ease: "power3.out",
+                        overwrite: true
+                    });
+                }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
         });
+
+        // 4. Parallax Effect for Images
+        // Modified to animate the image inside the container to avoid overlapping the text
+        projects.forEach(project => {
+            const img = project.querySelector('.parallax-img');
+            if (img) {
+                gsap.fromTo(img,
+                    { scale: 1.1, yPercent: -10 },
+                    {
+                        yPercent: 10,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: project,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true
+                        }
+                    }
+                );
+            }
+        });
+
+        // Refresh ScrollTrigger with Lenis
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
     </script>
 </body>
+
 </html>
