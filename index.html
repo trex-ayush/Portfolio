@@ -4,707 +4,1140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayush Kumar Singh | Full-Stack Developer</title>
-    <meta name="description" content="Portfolio of Ayush Kumar Singh - Full Stack Developer">
+    <title>Ayush Kumar Singh | Full-Stack / Backend Engineer</title>
+    <meta name="description"
+        content="Portfolio of Ayush Kumar Singh - Full-Stack / Backend Engineer working with MERN, payments, auth and application security.">
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 
-    <!-- Fonts -->
+    <!-- Fonts: Caveat (display) + Kalam (body) + Patrick Hand (labels) + Gloria Hallelujah (scrawl) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Gloria+Hallelujah&display=swap"
         rel="stylesheet">
 
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Tokens mirrored from the temp3 sketchbook theme — single source of truth with :root below.
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        background: '#E8E8E3',
-                        dark: '#080807',
-                        accent: '#8C8C73',
-                        secondary: '#6b645c',
+                        paper: '#FBF7EC',
+                        sheet: '#FFFEF8',
+                        ink: '#2B2A28',
+                        accent: '#E5484D',
+                        pen: '#3B6FE0',
+                        postit: '#FFE066',
+                        pink: '#FFB3C1',
+                        sky: '#A7D8F0',
+                        leaf: '#B8E986',
+                        peach: '#FFC078',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Space Mono', 'monospace'],
+                        display: ['Caveat', 'cursive'],
+                        body: ['Kalam', 'cursive'],
+                        hand: ['"Patrick Hand"', 'cursive'],
+                        scrawl: ['"Gloria Hallelujah"', 'cursive'],
                     },
-                    fontSize: {
-                        'hero': 'clamp(3.5rem, 15vw, 12rem)',
-                    },
-                    borderRadius: {
-                        '4xl': '2.5rem',
-                    }
                 }
             }
         }
     </script>
 
-    <!-- Styles -->
     <style>
+        :root {
+            --paper: #FBF7EC;
+            --sheet: #FFFEF8;
+            --ink: #2B2A28;
+            --accent: #E5484D;
+            --pen: #3B6FE0;
+            --postit: #FFE066;
+            --pink: #FFB3C1;
+            --sky: #A7D8F0;
+            --leaf: #B8E986;
+            --peach: #FFC078;
+        }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: #E8E8E3;
-            color: #171717;
             margin: 0;
+            font-family: 'Kalam', cursive;
+            color: var(--ink);
+            background: var(--paper);
+            background-image: radial-gradient(#ded7c2 1.1px, transparent 1.1px);
+            background-size: 26px 26px;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* Lenis Recommended CSS */
-        html.lenis,
-        html.lenis body {
-            height: auto;
-        }
+        ::selection { background: var(--postit); }
 
-        .lenis.lenis-smooth {
-            scroll-behavior: auto !important;
-        }
+        h1, h2, h3 { font-family: 'Caveat', cursive; font-weight: 700; margin: 0; }
 
-        .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
-        }
+        .hand { font-family: 'Patrick Hand', cursive; }
+        .scrawl { font-family: 'Gloria Hallelujah', cursive; }
 
-        .lenis.lenis-stopped {
-            overflow: hidden;
-        }
+        /* ---------- Paper & wobble primitives ---------- */
+        .paper { background: var(--sheet); border: 2.5px solid var(--ink); }
+        .wob1 { border-radius: 225px 14px 200px 18px / 18px 200px 20px 225px; }
+        .wob2 { border-radius: 14px 220px 16px 210px / 210px 16px 220px 18px; }
+        .wob3 { border-radius: 30px 180px 28px 200px / 200px 26px 190px 30px; }
+        .wob-sm { border-radius: 14px 5px 14px 5px; }
+        .wob-sm-alt { border-radius: 5px 14px 5px 14px; }
 
-        .lenis.lenis-scrolling iframe {
+        .shadow-ink { box-shadow: 7px 8px 0 0 var(--ink); }
+        .shadow-ink-md { box-shadow: 5px 6px 0 0 var(--ink); }
+        .shadow-ink-sm { box-shadow: 3px 4px 0 0 var(--ink); }
+
+        /* ---------- Tape & tacks ---------- */
+        .tape {
+            position: absolute;
+            width: 108px;
+            height: 30px;
+            background: rgba(255, 224, 102, .72);
+            border-left: 1px dashed rgba(0, 0, 0, .18);
+            border-right: 1px dashed rgba(0, 0, 0, .18);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .10);
             pointer-events: none;
         }
 
-        /* Utilities */
-        .clip-text span {
-            display: inline-block;
-            transform: translateY(100%);
-            opacity: 0;
-            will-change: transform, opacity;
+        .tape.blue { background: rgba(167, 216, 240, .72); }
+        .tape.pink { background: rgba(255, 179, 193, .72); }
+
+        .tack {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 34% 30%, #ff9fb1, #d6435c 62%, #a32f44);
+            box-shadow: 1px 3px 4px rgba(0, 0, 0, .32);
+            pointer-events: none;
         }
 
-        .loader-overlay {
+        .tack.blue { background: radial-gradient(circle at 34% 30%, #9ec8ec, #3b6fe0 62%, #2a4fa3); }
+        .tack.green { background: radial-gradient(circle at 34% 30%, #cdeea6, #6db33f 62%, #4d8a2c); }
+
+        /* ---------- Buttons ---------- */
+        .btn {
+            font-family: 'Patrick Hand', cursive;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            min-height: 3rem;
+            padding: .6rem 1.6rem;
+            border: 2.5px solid var(--ink);
+            background: var(--sheet);
+            color: var(--ink);
+            text-decoration: none;
+            transition: transform .1s, box-shadow .1s;
+        }
+
+        .btn:hover { transform: translate(-1px, -2px); }
+        .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 0 var(--ink) !important; }
+        .btn-red { background: var(--accent); color: #fff; }
+        .btn-yellow { background: var(--postit); }
+
+        /* ---------- Cards ---------- */
+        .lift { transition: transform .12s, box-shadow .12s; }
+        .lift:hover { transform: translate(-1px, -3px) rotate(0deg); box-shadow: 8px 10px 0 0 var(--ink); }
+
+        /* Polaroid image frames */
+        .polaroid {
+            position: relative;
+            background: var(--sheet);
+            border: 2.5px solid var(--ink);
+            border-radius: 4px;
+            padding: 12px 12px 4px;
+            box-shadow: 6px 7px 0 0 var(--ink);
+        }
+
+        .polaroid .frame {
+            overflow: hidden;
+            border: 2px solid var(--ink);
+            background: #eee;
+        }
+
+        .grayimg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(55%) sepia(8%);
+            transition: filter .2s;
+            display: block;
+        }
+
+        .polaroid:hover .grayimg { filter: none; }
+
+        /* ---------- Chips & speech bubbles ---------- */
+        .chip {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 14px;
+            padding: 4px 12px;
+            background: var(--sheet);
+            border: 2px solid var(--ink);
+            border-radius: 10px 4px 10px 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Inline icons — brand marks use fill, lucide-style glyphs use stroke */
+        .ico { width: 18px; height: 18px; flex: none; }
+        .ico-sm { width: 15px; height: 15px; flex: none; }
+
+        .bubble {
+            position: relative;
+            border: 2.5px solid var(--ink);
+            border-radius: 22px 22px 22px 4px;
+            padding: 20px 18px;
+            box-shadow: 5px 6px 0 0 var(--ink);
+        }
+
+        .bubble .tail-b {
+            position: absolute; left: 34px; bottom: -15px; width: 0; height: 0;
+            border-left: 14px solid transparent; border-top: 18px solid var(--ink);
+        }
+
+        .bubble .tail-f {
+            position: absolute; left: 36px; bottom: -9px; width: 0; height: 0;
+            border-left: 11px solid transparent; border-top: 13px solid var(--bubble-bg, var(--postit));
+        }
+
+        /* ---------- Inputs ---------- */
+        .co-lab {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 13px;
+            color: #6b665c;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .co-in {
+            width: 100%;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 16px;
+            padding: 10px 12px;
+            border: 2.5px solid var(--ink);
+            border-radius: 12px 5px 12px 5px;
+            background: #fff;
+            outline: none;
+            color: var(--ink);
+            box-sizing: border-box;
+        }
+
+        .co-in:focus { box-shadow: 3px 3px 0 0 var(--ink); border-color: var(--pen); }
+
+        /* ---------- Motion & doodles ---------- */
+        @keyframes blink { 0%, 100% { opacity: 1 } 50% { opacity: .25 } }
+        @keyframes floaty { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-7px) } }
+
+        /* ---------- Page loader ---------- */
+        #loader {
             position: fixed;
             inset: 0;
-            background: #080807;
-            z-index: 9999;
+            z-index: 100;
+            background: var(--paper);
+            background-image: radial-gradient(#ded7c2 1.1px, transparent 1.1px);
+            background-size: 26px 26px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform .7s cubic-bezier(.65, 0, .35, 1);
+        }
+
+        #loader.done {
+            transform: translateY(-102%);
+            border-bottom-left-radius: 50% 8%;
+            border-bottom-right-radius: 50% 8%;
+        }
+
+        /* pencil "Ayush Kumar Singh" likhti hai: text left→right reveal + saath chalti pencil */
+        #loader .write {
+            position: relative;
+            font-family: 'Caveat', cursive;
+            font-weight: 700;
+            font-size: clamp(38px, 9vw, 64px);
+            line-height: 1.15;
+            white-space: nowrap;
+            padding: 0 10px;
+        }
+
+        #loader .write-text {
+            display: inline-block;
+            clip-path: inset(-25% 100% -25% 0);
+            animation: writein 1.8s .15s linear forwards;
+        }
+
+        @keyframes writein { to { clip-path: inset(-25% -3% -25% 0); } }
+
+        #loader .pencil {
+            position: absolute;
+            top: -14px;
+            left: 0;
+            font-size: 30px;
+            animation: pencilmove 1.8s .15s linear forwards,
+                       pencilgone .25s 2.05s forwards;
+        }
+
+        @keyframes pencilmove {
+            0%   { left: 0%;   translate: 0 0; }
+            15%  { left: 15%;  translate: 0 6px; }
+            30%  { left: 30%;  translate: 0 -2px; }
+            45%  { left: 45%;  translate: 0 5px; }
+            60%  { left: 60%;  translate: 0 -1px; }
+            75%  { left: 75%;  translate: 0 6px; }
+            90%  { left: 90%;  translate: 0 0; }
+            100% { left: 99%;  translate: 0 3px; }
+        }
+
+        @keyframes pencilgone { to { opacity: 0; translate: 14px -20px; } }
+
+        #loader .squiggle path {
+            stroke-dasharray: 270;
+            stroke-dashoffset: 270;
+            animation: draw .5s 2s ease forwards;   /* naam likhne ke baad underline */
+        }
+
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+
+        /* ---------- Hero reveal (staggers in once loader lifts) ---------- */
+        .rv { opacity: 0; }
+
+        body.loaded .rv { animation: settle .65s cubic-bezier(.22, 1, .36, 1) forwards; }
+
+        body.loaded .rv-1 { animation-delay: .05s; }
+        body.loaded .rv-2 { animation-delay: .15s; }
+        body.loaded .rv-3 { animation-delay: .28s; }
+        body.loaded .rv-4 { animation-delay: .40s; }
+        body.loaded .rv-5 { animation-delay: .52s; }
+        body.loaded .rv-6 { animation-delay: .64s; }
+
+        /* translate/rotate (not transform) so element tilts like -rotate-3 stay intact */
+        @keyframes settle {
+            from { opacity: 0; translate: 0 22px; rotate: 1.5deg; }
+            to { opacity: 1; translate: 0 0; rotate: 0deg; }
+        }
+
+        .doodle { pointer-events: none; }
+
+        /* ---------- Scroll-to-top ---------- */
+        #to-top {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 80;
+            width: 52px;
+            height: 52px;
+            border-radius: 50% 48% 52% 50% / 50% 52% 48% 50%;
+            border: 2.5px solid var(--ink);
+            background: var(--postit);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #E8E8E3;
-            transform-origin: top;
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink);
+            box-shadow: 3px 4px 0 0 var(--ink);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px) rotate(-4deg);
+            transition: opacity .2s, visibility .2s, transform .2s, box-shadow .1s;
+        }
+
+        #to-top.show { opacity: 1; visibility: visible; transform: translateY(0) rotate(-4deg); }
+        #to-top:hover { transform: translateY(-3px) rotate(4deg); box-shadow: 3px 7px 0 0 var(--ink); }
+        #to-top:active { transform: translate(2px, 2px) rotate(-4deg); box-shadow: 1px 1px 0 0 var(--ink); }
+        .floaty { animation: floaty 5s ease-in-out infinite; }
+        .blinkdot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); animation: blink 1.3s steps(1) infinite; }
+
+        .wavy-link { text-decoration: none; color: inherit; }
+        .wavy-link:hover { text-decoration: underline wavy var(--accent); text-underline-offset: 6px; }
+
+        a:focus-visible, button:focus-visible, .co-in:focus-visible {
+            outline: 3px dashed var(--pen);
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .floaty, .blinkdot { animation: none; }
+            * { transition-duration: .01ms !important; }
+            #loader { display: none; }
+            .rv { opacity: 1 !important; animation: none !important; }
         }
     </style>
 </head>
 
-<body class="antialiased">
+<body>
 
-    <!-- Loader -->
-    <div class="loader-overlay fixed inset-0 bg-black z-50 flex items-center justify-center">
-        <!-- Text removed as requested -->
+    <!-- ====== PAGE LOADER ====== -->
+    <div id="loader" aria-hidden="true">
+        <div class="write">
+            <span class="write-text">Ayush Kumar Singh</span>
+            <span class="pencil">✏️</span>
+        </div>
+        <svg class="squiggle" width="230" height="18" viewBox="0 0 230 18" fill="none">
+            <path d="M4 11 C 50 2, 90 15, 125 8 S 195 2, 226 9" stroke="#E5484D" stroke-width="3.5"
+                stroke-linecap="round" />
+        </svg>
+    </div>
+    <noscript>
+        <style>#loader { display: none; } .rv { opacity: 1; }</style>
+    </noscript>
+
+    <a href="#main"
+        class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] btn wob-sm shadow-ink-sm text-lg">
+        Skip to content</a>
+
+    <!-- ====== TOP NOTE BAR ====== -->
+    <div class="hand flex items-center justify-center gap-x-6 gap-y-1 flex-wrap px-4 py-3 bg-ink text-paper text-sm">
+        <span>✦ Ayush Kumar Singh — Full-Stack / Backend Engineer</span>
+        <span class="text-postit">MERN · Payments · Auth &amp; Security</span>
+        <span class="inline-flex items-center gap-2"><span class="blinkdot"></span>open to work — Bhopal, India</span>
     </div>
 
-    <!-- Header -->
-    <header class="fixed top-0 left-0 w-full z-50 p-6 md:p-8 mix-blend-difference text-[#E8E8E3]">
-        <div class="flex justify-between items-center max-w-[1920px] mx-auto">
-            <div class="font-mono text-xs md:text-sm uppercase tracking-widest opacity-0 header-item">
-                Ayush Kumar Singh
+    <!-- ====== NAV ====== -->
+    <header class="sticky top-0 z-50 px-4 pt-3">
+        <nav class="paper wob-sm shadow-ink-sm mx-auto max-w-5xl px-5 py-2.5 flex items-center justify-between gap-4">
+            <a href="#main" class="font-display text-3xl font-bold -rotate-2 wavy-link">
+                Ayush<span class="text-accent">.</span>
+            </a>
+            <ul class="hand hidden md:flex items-center gap-7 text-lg list-none m-0 p-0">
+                <li><a href="#work" class="wavy-link">Work</a></li>
+                <li><a href="#projects" class="wavy-link">Projects</a></li>
+                <li><a href="#skills" class="wavy-link">Skills</a></li>
+                <li><a href="#contact" class="wavy-link">Contact</a></li>
+            </ul>
+            <div class="flex items-center gap-2">
+                <a href="./AyushKumarSingh.pdf" data-resume-open title="View resume"
+                    class="btn btn-yellow wob-sm shadow-ink-sm !min-h-0 !py-1.5 !px-4 text-base">
+                    <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>
+                    </svg>Resume</a>
+                <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false"
+                    class="btn wob-sm-alt shadow-ink-sm !min-h-0 !py-1.5 !px-3 md:!hidden">
+                    <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" aria-hidden="true">
+                        <path d="M3 6h18"/><path d="M3 12h14"/><path d="M3 18h18"/>
+                    </svg>
+                </button>
             </div>
-            <nav
-                class="hidden md:flex gap-8 font-mono text-xs md:text-sm uppercase tracking-widest opacity-0 header-item">
-                <a href="#services" class="hover:text-accent transition-colors">Services</a>
-                <a href="#works" class="hover:text-accent transition-colors">Works</a>
-                <a href="#about" class="hover:text-accent transition-colors">About</a>
-                <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
-            </nav>
-            <button id="mobile-menu-btn"
-                class="md:hidden font-mono text-xs uppercase opacity-0 header-item p-2">MENU</button>
+        </nav>
+
+        <!-- mobile dropdown -->
+        <div id="menu-panel" class="hidden md:!hidden mx-auto max-w-5xl mt-2">
+            <div class="paper wob-sm shadow-ink-sm px-5 py-3">
+                <ul class="hand text-lg list-none m-0 p-0 divide-y-2 divide-dashed divide-[#c7c0ad]">
+                    <li><a href="#work" class="block py-2.5 wavy-link menu-link">✏ Work</a></li>
+                    <li><a href="#projects" class="block py-2.5 wavy-link menu-link">✏ Projects</a></li>
+                    <li><a href="#skills" class="block py-2.5 wavy-link menu-link">✏ Skills</a></li>
+                    <li><a href="#contact" class="block py-2.5 wavy-link menu-link">✏ Contact</a></li>
+                </ul>
+            </div>
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay"
-        class="fixed inset-0 bg-[#E8E8E3] z-[60] opacity-0 pointer-events-none transition-opacity duration-500">
+    <main id="main">
 
-        <!-- Header with close -->
-        <div class="flex justify-between items-center p-6">
-            <span class="font-mono text-xs uppercase tracking-widest text-secondary">Menu</span>
-            <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center rounded-full border border-dark/20 hover:bg-dark hover:text-[#E8E8E3] transition-all duration-300">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 6L6 18M6 6l12 12"/>
+        <!-- ====== HERO ====== -->
+        <section class="relative mx-auto max-w-5xl px-5 pt-14 pb-10 md:pt-20">
+
+            <!-- corner doodles -->
+            <svg class="doodle hidden md:block absolute left-2 top-40" width="150" height="96" viewBox="0 0 150 96"
+                aria-hidden="true">
+                <path d="M8,84 C 52,74 80,42 130,22" fill="none" stroke="#3B6FE0" stroke-width="3"
+                    stroke-linecap="round" stroke-dasharray="1 9" />
+                <path d="M130,22 L109,23 M130,22 L120,41" fill="none" stroke="#3B6FE0" stroke-width="3.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="doodle floaty hidden md:block absolute right-4 top-36 w-[74px] h-[74px] border-[3px] border-dashed border-pen rounded-full"
+                aria-hidden="true"></div>
+
+            <div class="text-center mb-10">
+                <div class="rv rv-1 hand inline-block -rotate-3 bg-postit border-[2.5px] border-ink shadow-ink-sm px-4 py-1.5 text-[15px]"
+                    style="border-radius:20px 180px 22px 190px/190px 20px 180px 24px;">
+                    my engineering sketchbook ✎
+                </div>
+                <h1 class="rv rv-2 text-6xl md:text-8xl leading-[.95] mt-4 mb-2">Ayush Kumar Singh</h1>
+                <p class="rv rv-3 hand text-lg md:text-xl text-[#6b665c] m-0">
+                    I build the <b>payments, auth &amp; security</b> pages of the story — the ones that
+                    can't have typos.
+                </p>
+                <svg class="rv rv-3 doodle block mx-auto mt-1" width="260" height="18" viewBox="0 0 260 18" aria-hidden="true">
+                    <path d="M4,11 C 60,2 110,16 150,8 C 195,1 230,14 256,7" fill="none" stroke="#E5484D"
+                        stroke-width="3.5" stroke-linecap="round" />
                 </svg>
-            </button>
-        </div>
+            </div>
 
-        <!-- Main Content -->
-        <div class="flex flex-col justify-between h-[calc(100%-80px)] px-6 pb-8">
+            <div class="grid md:grid-cols-[1fr_auto] gap-10 md:gap-14 items-center max-w-4xl mx-auto">
 
-            <!-- Navigation Links -->
-            <nav class="flex flex-col gap-2 mt-8">
-                <a href="#services" class="mobile-link group flex items-center justify-between py-4 border-b border-dark/10">
-                    <span class="text-4xl font-bold uppercase tracking-tight text-dark group-hover:text-accent transition-colors">Services</span>
-                    <span class="font-mono text-xs text-secondary">(01)</span>
-                </a>
-                <a href="#works" class="mobile-link group flex items-center justify-between py-4 border-b border-dark/10">
-                    <span class="text-4xl font-bold uppercase tracking-tight text-dark group-hover:text-accent transition-colors">Works</span>
-                    <span class="font-mono text-xs text-secondary">(02)</span>
-                </a>
-                <a href="#about" class="mobile-link group flex items-center justify-between py-4 border-b border-dark/10">
-                    <span class="text-4xl font-bold uppercase tracking-tight text-dark group-hover:text-accent transition-colors">About</span>
-                    <span class="font-mono text-xs text-secondary">(03)</span>
-                </a>
-                <a href="#contact" class="mobile-link group flex items-center justify-between py-4 border-b border-dark/10">
-                    <span class="text-4xl font-bold uppercase tracking-tight text-dark group-hover:text-accent transition-colors">Contact</span>
-                    <span class="font-mono text-xs text-secondary">(04)</span>
-                </a>
-            </nav>
-
-            <!-- Bottom Section -->
-            <div class="space-y-6">
-                <!-- Email -->
-                <a href="mailto:singhayush.sa81@gmail.com" class="mobile-link block font-mono text-sm text-secondary hover:text-dark transition-colors">
-                    singhayush.sa81@gmail.com
-                </a>
-
-                <!-- Socials -->
-                <div class="flex gap-4 mobile-link">
-                    <a href="https://github.com/trex-ayush" target="_blank"
-                       class="w-10 h-10 flex items-center justify-center rounded-full border border-dark/20 hover:bg-dark hover:text-[#E8E8E3] transition-all duration-300">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                        </svg>
-                    </a>
-                    <a href="https://linkedin.com/in/ayush-kumar-singh-677388250/" target="_blank"
-                       class="w-10 h-10 flex items-center justify-center rounded-full border border-dark/20 hover:bg-dark hover:text-[#E8E8E3] transition-all duration-300">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                    </a>
-                    <a href="https://leetcode.com/ayushsingh03" target="_blank"
-                       class="w-10 h-10 flex items-center justify-center rounded-full border border-dark/20 hover:bg-dark hover:text-[#E8E8E3] transition-all duration-300">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                            <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.843 5.843 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
-                        </svg>
-                    </a>
+                <!-- intro card -->
+                <div class="rv rv-4 paper wob2 shadow-ink relative p-7 md:p-9 -rotate-1">
+                    <div class="tack" style="top:-11px;left:50%;margin-left:-10px;"></div>
+                    <p class="hand text-lg md:text-xl leading-relaxed m-0">
+                        Associate Software Engineer at <b>Pabbly</b>. I reconcile payment gateways that
+                        disagree with each other, rotate refresh tokens without logging anyone out, and chase
+                        connection leaks at 2am. Systems where
+                        <span class="bg-postit px-1.5 rounded">"mostly works" isn't a passing grade</span> —
+                        that's my favourite kind.
+                    </p>
+                    <div class="flex flex-wrap gap-3 mt-6">
+                        <a href="#projects" class="btn btn-red wob3 shadow-ink-sm text-lg">Flip to my projects ✦</a>
+                        <a href="#contact" class="btn wob1 shadow-ink-sm text-lg">Say hello</a>
+                    </div>
                 </div>
 
-                <!-- Status -->
-                <div class="flex items-center gap-3 mobile-link">
-                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    <span class="font-mono text-xs uppercase text-secondary">Available for work</span>
+                <!-- portrait polaroid -->
+                <div class="rv rv-5 relative justify-self-center rotate-2">
+                    <div class="polaroid w-60 md:w-72">
+                        <div class="tape" style="top:-15px;left:50%;margin-left:-54px;transform:rotate(-6deg);"></div>
+                        <div class="frame aspect-[4/5]">
+                            <img src="./sketch_portrait.png" class="grayimg"
+                                alt="Hand-drawn portrait sketch of Ayush Kumar Singh" data-fallback="✏️"
+                                width="640" height="800">
+                        </div>
+                        <div class="scrawl text-center text-[15px] pt-3 pb-1">that's me, allegedly</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Main Content -->
-    <main>
-
-        <!-- Hero Section -->
-        <section class="h-[100svh] w-full flex flex-col justify-center items-center relative px-4 pt-20 md:pt-0">
-
-            <div
-                class="absolute top-[90px] md:top-[120px] left-0 w-full px-6 md:px-12 flex justify-between items-start font-mono text-xs text-secondary uppercase z-0">
-                <span class="opacity-0 hero-meta">Web Developer</span>
-                <span class="opacity-0 hero-meta text-right">Based in India<br>Available Worldwide</span>
-            </div>
-
-            <!-- Huge Text -->
-            <div class="relative z-10 text-center leading-[0.8] tracking-tighter mix-blend-exclusion">
-                <h1 class="font-bold text-hero uppercase text-[#171717] flex justify-center overflow-hidden clip-text"
-                    id="hero-first">
-                    <span>A</span><span>y</span><span>u</span><span>s</span><span>h</span>
-                </h1>
-                <h1 class="font-bold text-hero uppercase text-[#171717] flex justify-center overflow-hidden clip-text"
-                    id="hero-last">
-                    <span>S</span><span>i</span><span>n</span><span>g</span><span>h</span>
-                </h1>
-            </div>
-
-            <!-- Centered Image Placeholder -->
-            <div class="mt-8 md:mt-[-4vw] relative w-64 md:w-[22vw] aspect-[3/4] bg-[#b0b0b0] rounded-lg overflow-hidden scale-0 opacity-0 group"
-                id="hero-image">
-                <img src="./pexels-sophors-25437427.jpg" alt="Abstract Hero Art"
-                    class="absolute inset-0 w-full h-full object-cover grayscale brightness-110 contrast-110 group-hover:scale-105 transition-transform duration-700 ease-out">
-            </div>
-
-            <div class="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-6 md:pb-12 pt-16 md:pt-8 flex justify-between items-end gap-4 bg-gradient-to-t from-[#E8E8E3] via-[#E8E8E3]/95 to-transparent z-20">
-                <div class="max-w-[50%] md:max-w-xs font-medium text-xs md:text-base leading-snug opacity-0 hero-meta">
-                    Turning ideas into clean, intuitive digital experiences with modern tech stacks.
+            <!-- stat post-its -->
+            <div class="rv rv-6 grid grid-cols-3 gap-3 md:gap-5 max-w-2xl mx-auto mt-12">
+                <div class="paper wob-sm shadow-ink-sm text-center bg-postit px-2 py-3 -rotate-2">
+                    <div class="font-display text-3xl md:text-4xl font-bold leading-none">400+</div>
+                    <div class="hand text-xs md:text-sm text-[#6b665c]">LeetCode problems</div>
                 </div>
-                <div class="text-right opacity-0 hero-meta shrink-0">
-                    <span class="block font-mono text-[10px] md:text-xs uppercase text-accent mb-1">Status</span>
-                    <span class="text-2xl md:text-5xl font-bold uppercase tracking-tight">OPEN</span>
+                <div class="paper wob-sm shadow-ink-sm text-center bg-sky px-2 py-3 rotate-1">
+                    <div class="font-display text-3xl md:text-4xl font-bold leading-none">148</div>
+                    <div class="hand text-xs md:text-sm text-[#6b665c]">REST endpoints, one app</div>
+                </div>
+                <div class="paper wob-sm shadow-ink-sm text-center bg-pink px-2 py-3 -rotate-1">
+                    <div class="font-display text-3xl md:text-4xl font-bold leading-none">3</div>
+                    <div class="hand text-xs md:text-sm text-[#6b665c]">payment gateways tamed</div>
                 </div>
             </div>
         </section>
 
-        <!-- Dynamic Island / Dark Section -->
-        <div
-            class="bg-dark text-[#E8E8E3] rounded-t-4xl relative z-10 pt-24 md:pt-32 pb-24 shadow-[0_-20px_40px_rgba(0,0,0,0.1)]">
+        <!-- wavy divider -->
+        <svg class="doodle block w-full mt-8" height="26" viewBox="0 0 1200 26" preserveAspectRatio="none"
+            aria-hidden="true">
+            <path d="M0,13 Q 40,1 80,13 T 160,13 T 240,13 T 320,13 T 400,13 T 480,13 T 560,13 T 640,13 T 720,13 T 800,13 T 880,13 T 960,13 T 1040,13 T 1120,13 T 1200,13"
+                fill="none" stroke="#2B2A28" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
 
-            <!-- Use fluid grid -->
-            <div class="max-w-[1800px] mx-auto px-6 md:px-12">
+        <!-- ====== EXPERIENCE ====== -->
+        <section id="work" class="mx-auto max-w-5xl px-5 py-14">
+            <div class="text-center mb-10">
+                <div class="scrawl inline-block text-[13px] text-accent -rotate-2">~ the day jobs ~</div>
+                <h2 class="text-5xl md:text-6xl leading-none mt-1.5">Where I've worked</h2>
+                <p class="hand text-[17px] text-[#6b665c] m-0 mt-1">two stops so far — both about money moving correctly</p>
+            </div>
 
-                <!-- Services -->
-                <section id="services" class="mb-32 md:mb-48">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-12">
-                        <div class="col-span-12 md:col-span-5">
-                            <h2
-                                class="text-5xl md:text-8xl font-bold uppercase tracking-tighter text-accent leading-[0.9]">
-                                What I<br>Can Do
-                            </h2>
+            <div class="space-y-12">
+
+                <!-- Pabbly -->
+                <article class="paper wob2 shadow-ink lift relative p-6 md:p-9 -rotate-1">
+                    <div class="tape blue" style="top:-14px;left:42px;transform:rotate(-7deg);"></div>
+                    <div class="tape" style="top:-14px;right:42px;transform:rotate(6deg);"></div>
+
+                    <div class="flex flex-wrap items-baseline justify-between gap-2">
+                        <h3 class="text-4xl md:text-5xl">Pabbly <span class="text-accent">·</span>
+                            <span class="text-2xl md:text-3xl">Associate Software Engineer</span></h3>
+                        <span class="chip bg-postit rotate-1 shadow-ink-sm">Nov 2025 — now</span>
+                    </div>
+                    <p class="scrawl text-[13px] text-pen mt-1 mb-5 -rotate-1">on-site · Bhopal · payments team</p>
+
+                    <ul class="hand list-none m-0 p-0 space-y-3.5 text-[17px] md:text-lg leading-relaxed">
+                        <li class="flex gap-3"><span class="font-display text-accent text-2xl leading-none shrink-0">✓</span>
+                            <span>Built a <b>payment reconciliation system</b> across 3 gateways (Stripe, Razorpay,
+                                PayPal) using concurrent cron jobs with fair-share scheduling — no merchant starves
+                                the others.</span></li>
+                        <li class="flex gap-3"><span class="font-display text-accent text-2xl leading-none shrink-0">✓</span>
+                            <span>Migrated <b>PayPal recurring billing</b> to the Subscriptions API with full backward
+                                compatibility and zero disruption to live subscriptions.</span></li>
+                        <li class="flex gap-3"><span class="font-display text-accent text-2xl leading-none shrink-0">✓</span>
+                            <span>Resolved a production <b>MongoDB connection exhaustion</b> incident via connection
+                                pooling and graceful shutdown, and removed redundant checkout API round-trips.</span></li>
+                        <li class="flex gap-3"><span class="font-display text-accent text-2xl leading-none shrink-0">✓</span>
+                            <span>Shipped <b>multi-key API auth</b> with RBAC, custom domains and transaction-fee
+                                billing — auto-migrated 100% of single-key users with zero downtime.</span></li>
+                    </ul>
+
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="chip -rotate-1">Stripe</span>
+                        <span class="chip rotate-1">Razorpay</span>
+                        <span class="chip -rotate-1">PayPal</span>
+                        <span class="chip rotate-1">MongoDB</span>
+                    </div>
+                </article>
+
+                <!-- Bluestock -->
+                <article class="paper wob3 shadow-ink lift relative p-6 md:p-9 rotate-1">
+                    <div class="tape pink" style="top:-14px;left:50%;margin-left:-54px;transform:rotate(-4deg);"></div>
+
+                    <div class="flex flex-wrap items-baseline justify-between gap-2">
+                        <h3 class="text-4xl md:text-5xl">Bluestock Fintech <span class="text-pen">·</span>
+                            <span class="text-2xl md:text-3xl">Full-Stack Intern</span></h3>
+                        <span class="chip bg-sky -rotate-1 shadow-ink-sm">Apr — May 2025</span>
+                    </div>
+                    <p class="scrawl text-[13px] text-pen mt-1 mb-5 rotate-1">remote · fintech dashboards</p>
+
+                    <ul class="hand list-none m-0 p-0 space-y-3.5 text-[17px] md:text-lg leading-relaxed">
+                        <li class="flex gap-3"><span class="font-display text-pen text-2xl leading-none shrink-0">✓</span>
+                            <span>Developed an <b>IPO analytics dashboard</b> in React, Node.js, Express and MongoDB
+                                serving data across 10+ active IPO listings.</span></li>
+                        <li class="flex gap-3"><span class="font-display text-pen text-2xl leading-none shrink-0">✓</span>
+                            <span>Designed <b>15+ REST endpoints</b> with JWT auth and role-based access control; cut
+                                query response time with compound indexes and projection queries.</span></li>
+                    </ul>
+
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="chip rotate-1">React</span>
+                        <span class="chip -rotate-1">Node.js</span>
+                        <span class="chip rotate-1">Express</span>
+                        <span class="chip -rotate-1">MongoDB</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- wavy divider (blue) -->
+        <svg class="doodle block w-full" height="26" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,13 Q 40,25 80,13 T 160,13 T 240,13 T 320,13 T 400,13 T 480,13 T 560,13 T 640,13 T 720,13 T 800,13 T 880,13 T 960,13 T 1040,13 T 1120,13 T 1200,13"
+                fill="none" stroke="#3B6FE0" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+
+        <!-- ====== PROJECTS ====== -->
+        <section id="projects" class="mx-auto max-w-5xl px-5 py-14">
+            <div class="text-center mb-12">
+                <div class="scrawl inline-block text-[13px] text-pen rotate-2">~ nights &amp; weekends ~</div>
+                <h2 class="text-5xl md:text-6xl leading-none mt-1.5">The project pages</h2>
+                <p class="hand text-[17px] text-[#6b665c] m-0 mt-1">a suspicious number of webhooks were harmed in the making</p>
+            </div>
+
+            <div class="space-y-16">
+
+                <!-- Scribble -->
+                <article class="grid md:grid-cols-2 gap-10 items-center">
+                    <div class="polaroid lift -rotate-2 max-w-md w-full mx-auto">
+                        <div class="tape" style="top:-15px;left:50%;margin-left:-54px;transform:rotate(-6deg);"></div>
+                        <div class="frame aspect-[4/3]">
+                            <img src="./project_scribble.png" class="grayimg" loading="lazy" width="1200" height="900"
+                                alt="Sketch of the Scribble writing platform — editor with session and webhook panels"
+                                data-fallback="📝">
                         </div>
-                        <div class="col-span-12 md:col-span-7 flex flex-col gap-16 pt-4">
-                            <!-- S1 -->
-                            <div class="group border-t border-white/10 pt-6">
-                                <div class="flex justify-between items-baseline mb-8">
-                                    <h3
-                                        class="text-4xl md:text-5xl font-semibold uppercase group-hover:text-accent transition-colors">
-                                        Full-Stack Development</h3>
-                                    <span class="font-mono text-xs text-secondary">(01)</span>
-                                </div>
-                                <p class="text-secondary text-lg max-w-xl mb-8">
-                                    From frontend interactions to backend APIs, I build complete web solutions. I work
-                                    with modern stacks to deliver apps that are scalable, maintainable, and ready for
-                                    real-world users.
-                                </p>
-                                <div class="border-t border-white/5 divide-y divide-white/5">
-                                    <div class="py-4 flex items-center gap-6">
-                                        <span class="font-mono text-xs text-secondary">01</span>
-                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">React, Node.js,
-                                            Express.js</span>
-                                    </div>
-                                    <div class="py-4 flex items-center gap-6">
-                                        <span class="font-mono text-xs text-secondary">02</span>
-                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">REST APIs,
-                                            MongoDB</span>
-                                    </div>
-                                    <div class="py-4 flex items-center gap-6">
-                                        <span class="font-mono text-xs text-secondary">03</span>
-                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">Git, GitHub,
-                                            Postman</span>
-                                    </div>
-                                </div>
+                        <div class="scrawl text-center text-[15px] pt-3 pb-1">scribble — the writing machine</div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-baseline gap-3 flex-wrap">
+                            <h3 class="text-4xl md:text-5xl">Scribble</h3>
+                            <span class="chip bg-postit -rotate-2 shadow-ink-sm">May 2026 →</span>
+                        </div>
+                        <p class="scrawl text-[13px] text-accent mt-1 mb-4 -rotate-1">writing platform · MERN · security-first</p>
+                        <ul class="hand list-none m-0 p-0 space-y-3 text-[16px] md:text-[17px] leading-relaxed">
+                            <li class="flex gap-2.5"><span class="text-accent shrink-0">✦</span>Hardened session auth:
+                                httpOnly-cookie JWTs, refresh-token rotation with SHA-256 reuse detection, per-device
+                                instant revocation.</li>
+                            <li class="flex gap-2.5"><span class="text-accent shrink-0">✦</span>Outbound webhooks across
+                                11 event types — HMAC-SHA256 signing, SSRF/DNS-rebinding protection,
+                                retry-with-backoff auto-disable.</li>
+                            <li class="flex gap-2.5"><span class="text-accent shrink-0">✦</span>Server-side RBAC over 3
+                                workspace roles, 90-day audit trail, race-safe analytics via atomic upserts.</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-2 mt-5">
+                            <span class="chip rotate-1">MERN</span>
+                            <span class="chip -rotate-1">JWT</span>
+                            <span class="chip rotate-1">Web Locks API</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 mt-5">
+                            <a href="https://github.com/trex-ayush/scribble" target="_blank"
+                                class="btn wob-sm shadow-ink-sm !min-h-0 !py-1.5 !px-5 text-base"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
+                            <a href="https://scribble.ayushkumarsingh.me" target="_blank"
+                                class="btn btn-red wob-sm-alt shadow-ink-sm !min-h-0 !py-1.5 !px-5 text-base"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Live</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- TransitOps -->
+                <article class="grid md:grid-cols-2 gap-10 items-center">
+                    <div class="polaroid lift rotate-2 max-w-md w-full mx-auto md:order-2">
+                        <div class="tape blue" style="top:-15px;left:50%;margin-left:-54px;transform:rotate(5deg);"></div>
+                        <div class="frame aspect-[4/3]">
+                            <img src="./project_transitops.png" class="grayimg" loading="lazy" width="1200" height="900"
+                                alt="Sketch of the TransitOps fleet dashboard with a serverless AWS architecture doodle"
+                                data-fallback="🚚">
+                        </div>
+                        <div class="scrawl text-center text-[15px] pt-3 pb-1">transitops — buses in the cloud</div>
+                    </div>
+
+                    <div class="md:order-1">
+                        <div class="flex items-baseline gap-3 flex-wrap">
+                            <h3 class="text-4xl md:text-5xl">TransitOps</h3>
+                            <span class="chip bg-sky rotate-2 shadow-ink-sm">Jul 2026 →</span>
+                        </div>
+                        <p class="scrawl text-[13px] text-pen mt-1 mb-4 rotate-1">fleet operations · serverless AWS</p>
+                        <ul class="hand list-none m-0 p-0 space-y-3 text-[16px] md:text-[17px] leading-relaxed">
+                            <li class="flex gap-2.5"><span class="text-pen shrink-0">✦</span>MERN fleet app deployed
+                                serverless — Express as a Lambda behind API Gateway, one CloudFront origin serving the
+                                SPA and proxying /api/* from OAC-locked S3.</li>
+                            <li class="flex gap-2.5"><span class="text-pen shrink-0">✦</span>Whole stack as
+                                infrastructure-as-code with AWS SAM, plus GitHub Actions running sam deploy, S3 sync
+                                and CloudFront invalidation.</li>
+                            <li class="flex gap-2.5"><span class="text-pen shrink-0">✦</span>Warm-Lambda MongoDB
+                                connection pooling across a 42-endpoint API — warm invocations reuse an open
+                                connection.</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-2 mt-5">
+                            <span class="chip -rotate-1">AWS SAM</span>
+                            <span class="chip rotate-1">Lambda</span>
+                            <span class="chip -rotate-1">MongoDB</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 mt-5">
+                            <a href="https://github.com/trex-ayush/TransitOps-Smart-Transport-Operations-Platform"
+                                target="_blank"
+                                class="btn wob-sm shadow-ink-sm !min-h-0 !py-1.5 !px-5 text-base"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
+                            <a href="https://d3126aezf3inzw.cloudfront.net/" target="_blank"
+                                class="btn btn-red wob-sm-alt shadow-ink-sm !min-h-0 !py-1.5 !px-5 text-base"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Live</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Skill Path -->
+                <article class="grid md:grid-cols-2 gap-10 items-center">
+                    <div class="polaroid lift -rotate-1 max-w-md w-full mx-auto">
+                        <div class="tape pink" style="top:-15px;left:50%;margin-left:-54px;transform:rotate(-4deg);"></div>
+                        <div class="frame aspect-[4/3]">
+                            <img src="./project_skillpath.png" class="grayimg" loading="lazy" width="1200" height="900"
+                                alt="Sketch of the Skill Path course marketplace with checkout and AI key delegation notes"
+                                data-fallback="🎓">
+                        </div>
+                        <div class="scrawl text-center text-[15px] pt-3 pb-1">skill path — 148 endpoints of it</div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-baseline gap-3 flex-wrap">
+                            <h3 class="text-4xl md:text-5xl">Skill Path</h3>
+                            <span class="chip bg-pink -rotate-2 shadow-ink-sm">Jan — Jun 2026</span>
+                        </div>
+                        <p class="scrawl text-[13px] text-accent mt-1 mb-4 -rotate-1">course marketplace · Stripe · AI keys</p>
+                        <ul class="hand list-none m-0 p-0 space-y-3 text-[16px] md:text-[17px] leading-relaxed">
+                            <li class="flex gap-2.5"><span class="text-accent shrink-0">✦</span>Multi-role marketplace
+                                spanning 148 REST endpoints and 19 models, with Stripe Checkout, signature-verified
+                                webhook enrollment and PDFKit invoicing.</li>
+                            <li class="flex gap-2.5"><span class="text-accent shrink-0">✦</span>Per-course AI key
+                                delegation across OpenAI, Gemini and Anthropic — AES-256-GCM encrypted key storage,
+                                per-student blocks, read-only conversation auditing.</li>
+                            <li class="flex gap-2.5"><span class="text-accent shrink-0">✦</span>JWT auth,
+                                course-ownership middleware, Google OAuth 2.0 server-side code exchange, admin
+                                impersonation for support.</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-2 mt-5">
+                            <span class="chip rotate-1">Stripe</span>
+                            <span class="chip -rotate-1">OAuth 2.0</span>
+                            <span class="chip rotate-1">AES-256-GCM</span>
+                        </div>
+                        <div class="flex flex-wrap gap-3 mt-5">
+                            <a href="https://github.com/trex-ayush/Learning-Management-System" target="_blank"
+                                class="btn wob-sm shadow-ink-sm !min-h-0 !py-1.5 !px-5 text-base"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
+                            <a href="https://study.ayushkumarsingh.me" target="_blank"
+                                class="btn btn-red wob-sm-alt shadow-ink-sm !min-h-0 !py-1.5 !px-5 text-base"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Live</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- wavy divider (red) -->
+        <svg class="doodle block w-full" height="26" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,13 Q 40,1 80,13 T 160,13 T 240,13 T 320,13 T 400,13 T 480,13 T 560,13 T 640,13 T 720,13 T 800,13 T 880,13 T 960,13 T 1040,13 T 1120,13 T 1200,13"
+                fill="none" stroke="#E5484D" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+
+        <!-- ====== SKILLS : pinned post-it wall ====== -->
+        <section id="skills" class="mx-auto max-w-5xl px-5 py-14">
+            <div class="text-center mb-10">
+                <div class="scrawl inline-block text-[13px] text-pen rotate-2">~ everything in the pencil case ~</div>
+                <h2 class="text-5xl md:text-6xl leading-none mt-1.5">What's pinned to the board</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="relative bg-postit border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 -rotate-3">
+                    <div class="tack" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Backend</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">Node.js · Express.js · Sails.js · REST APIs</div>
+                </div>
+                <div class="relative bg-pink border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 rotate-2">
+                    <div class="tack blue" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Databases</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">MongoDB · Mongoose · MySQL · PostgreSQL</div>
+                </div>
+                <div class="relative bg-sky border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 -rotate-2">
+                    <div class="tack" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Frontend</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">React.js · Tailwind CSS · Zustand · Vite</div>
+                </div>
+                <div class="relative bg-leaf border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 rotate-3">
+                    <div class="tack green" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Languages</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">C++ · JavaScript · Java · SQL</div>
+                </div>
+                <div class="relative bg-peach border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 -rotate-2">
+                    <div class="tack" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Payments</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">Stripe · Razorpay · PayPal · webhooks</div>
+                </div>
+                <div class="relative bg-postit border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 rotate-2">
+                    <div class="tack blue" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Cloud &amp; CI</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">AWS · GitHub Actions · Git</div>
+                </div>
+                <div class="relative bg-sky border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 -rotate-3">
+                    <div class="tack green" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Security</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">JWT · OAuth 2.0 · RBAC · AppSec</div>
+                </div>
+                <div class="relative bg-pink border-[2.5px] border-ink rounded-[7px] shadow-ink-md lift p-5 pt-6 rotate-2">
+                    <div class="tack" style="top:-10px;left:50%;margin-left:-10px;"></div>
+                    <div class="hand text-lg font-bold mb-1.5">Foundations</div>
+                    <div class="hand text-sm leading-relaxed text-[#4a463d]">DSA · OOP · MVC · Distributed Systems</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== DARK BAND : education & bragging rights ====== -->
+        <div class="border-y-[2.5px] border-ink bg-ink"
+            style="background-image:radial-gradient(rgba(255,255,255,.06) 1.1px, transparent 1.1px);background-size:24px 24px;">
+            <div class="mx-auto max-w-5xl px-5 py-14">
+                <div class="text-center mb-10">
+                    <div class="scrawl inline-block text-[13px] text-postit rotate-2">~ the report card ~</div>
+                    <h2 class="text-5xl md:text-6xl leading-none mt-1.5 text-paper">Proof it's going okay</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-x-8 gap-y-10 max-w-3xl mx-auto">
+
+                    <div class="pt-1">
+                        <div class="bubble bg-postit" style="--bubble-bg:#FFE066;">
+                            <div class="tack" style="top:-10px;right:18px;"></div>
+                            <p class="hand text-base leading-relaxed m-0">
+                                <b>B.Tech, Computer Science &amp; Engineering</b> — CGPA <b>8.6 / 10</b>.
+                                Four years of algorithms, OS fundamentals and far too much chai.
+                            </p>
+                            <div class="tail-b"></div>
+                            <div class="tail-f"></div>
+                        </div>
+                        <div class="flex items-center gap-3 mt-6 pl-1.5">
+                            <span class="hand w-[42px] h-[42px] rounded-full border-[2.5px] border-paper bg-pen text-paper flex items-center justify-center text-lg font-bold">V</span>
+                            <div>
+                                <div class="hand text-base font-bold text-paper">Vellore Institute of Technology</div>
+                                <div class="hand text-[13px] text-[#b5b0a4]">Aug 2022 — Mar 2026</div>
                             </div>
-                            <!-- S2 -->
-                            <div class="group border-t border-white/10 pt-6">
-                                <div class="flex justify-between items-baseline mb-8">
-                                    <h3
-                                        class="text-4xl md:text-5xl font-semibold uppercase group-hover:text-accent transition-colors">
-                                        Optimization & CS</h3>
-                                    <span class="font-mono text-xs text-secondary">(02)</span>
-                                </div>
-                                <p class="text-secondary text-lg max-w-xl mb-8">
-                                    Beyond handling data, I’m driven by the challenge of turning complex raw inputs into
-                                    reliable, usable systems. I enjoy designing pipelines that power insights and apply
-                                    core CS principles to build for scale, speed, and stability.
-                                </p>
-                                <div class="border-t border-white/5 divide-y divide-white/5">
-                                    <div class="py-4 flex items-center gap-6">
-                                        <span class="font-mono text-xs text-secondary">01</span>
-                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">Data Structures &
-                                            Algorithms</span>
-                                    </div>
-                                    <div class="py-4 flex items-center gap-6">
-                                        <span class="font-mono text-xs text-secondary">02</span>
-                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">DBMS, OOP, OS
-                                            Fundamentals</span>
-                                    </div>
-                                    <div class="py-4 flex items-center gap-6">
-                                        <span class="font-mono text-xs text-secondary">03</span>
-                                        <span class="text-xl md:text-2xl font-medium text-[#E8E8E3]">Scalability &
-                                            Performance</span>
-                                    </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-1">
+                        <div class="bubble bg-leaf" style="--bubble-bg:#B8E986;">
+                            <div class="tack blue" style="top:-10px;right:18px;"></div>
+                            <p class="hand text-base leading-relaxed m-0">
+                                <b>400+ problems</b> solved on LeetCode — ranked among the top coders on a campus of
+                                <b>15,000+ students</b>.
+                            </p>
+                            <div class="tail-b"></div>
+                            <div class="tail-f"></div>
+                        </div>
+                        <div class="flex items-center gap-3 mt-6 pl-1.5">
+                            <span class="hand w-[42px] h-[42px] rounded-full border-[2.5px] border-paper bg-accent text-paper flex items-center justify-center text-lg font-bold">★</span>
+                            <div>
+                                <div class="hand text-base font-bold text-paper">Competitive programming</div>
+                                <div class="hand text-[13px] text-[#b5b0a4]">
+                                    <a href="https://leetcode.com/ayushsingh03" target="_blank"
+                                        class="wavy-link text-[#b5b0a4]">leetcode.com/ayushsingh03</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-
-                <!-- Sticky Works Section -->
-                <section id="works" class="mb-32">
-                    <div class="flex flex-col md:flex-row gap-12">
-
-                        <!-- Sticky Sidebar -->
-                        <div class="hidden md:block w-48 relative">
-                            <div class="sticky top-[40vh]">
-                                <div
-                                    class="text-[8rem] leading-none font-bold text-white/10 relative overflow-hidden h-[1em] w-full">
-                                    <!-- The Sliding Tape -->
-                                    <div class="absolute left-0 top-0 flex flex-col transition-transform duration-500 ease-out"
-                                        id="number-tape">
-                                        <span>01</span>
-                                        <span>02</span>
-                                        <span>03</span>
-                                        <span>04</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Projects List -->
-                        <div class="flex-1 flex flex-col gap-32 md:gap-48 pt-12">
-
-                            <!-- P2 (Now P1) -->
-                            <div class="project-item group" data-id="1">
-                                <a href="https://quick-court-mx6r.onrender.com/" target="_blank" class="block">
-                                    <div
-                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-8 relative group-hover:border-accent/40 transition-colors z-10">
-                                        <img src="./project_quick_court.png" alt="Quick Court Interface"
-                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out parallax-img">
-                                    </div>
-                                    <div class="flex justify-between items-start relative z-20">
-                                        <div>
-                                            <h3
-                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
-                                                Quick Court</h3>
-                                            <p class="font-mono text-sm text-secondary">Venue Booking System</p>
-                                        </div>
-                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
-                                            2025</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- P1 (Now P2) -->
-                            <div class="project-item group" data-id="2">
-                                <a href="https://study-portal-frontend.onrender.com/" target="_blank" class="block">
-                                    <div
-                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-8 relative group-hover:border-accent/40 transition-colors z-10">
-                                        <img src="./project_study_portal.png" alt="Study Portal Interface"
-                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out parallax-img">
-                                    </div>
-                                    <div class="flex justify-between items-start relative z-20">
-                                        <div>
-                                            <h3
-                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
-                                                Study Portal</h3>
-                                            <p class="font-mono text-sm text-secondary">LMS Platform</p>
-                                        </div>
-                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
-                                            2025</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- P3 -->
-                            <div class="project-item group" data-id="3">
-                                <a href="https://github.com/trex-ayush" target="_blank" class="block">
-                                    <div
-                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-6 relative group-hover:border-accent/40 transition-colors">
-                                        <img src="./project_url_shortener.png" alt="URL Shortener Dashboard"
-                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
-                                    </div>
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h3
-                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
-                                                Shortener</h3>
-                                            <p class="font-mono text-sm text-secondary">High Scale System</p>
-                                        </div>
-                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
-                                            2024</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- P4 -->
-                            <div class="project-item group" data-id="4">
-                                <a href="https://github.com/trex-ayush" target="_blank" class="block">
-                                    <div
-                                        class="aspect-video bg-white/5 rounded-lg overflow-hidden border border-white/10 mb-6 relative group-hover:border-accent/40 transition-colors">
-                                        <img src="./project_devtinder.png" alt="DevTinder Code"
-                                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
-                                    </div>
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h3
-                                                class="text-4xl md:text-5xl font-bold uppercase mb-2 group-hover:text-accent transition-colors">
-                                                DevTinder</h3>
-                                            <p class="font-mono text-sm text-secondary">Social Backend</p>
-                                        </div>
-                                        <div class="font-mono text-xs border border-white/20 rounded-full px-3 py-1">
-                                            2024</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Skills / About -->
-                <section id="about" class="mb-32 pt-24 border-t border-white/10">
-                    <h2 class="text-[10vw] font-bold uppercase text-center opacity-10 leading-none mb-12">Expertise</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
-                            <span class="font-mono text-xs text-accent block mb-4">LANG</span>
-                            <div class="text-xl font-medium">JS / TS <br> C++ <br> SQL</div>
-                        </div>
-                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
-                            <span class="font-mono text-xs text-accent block mb-4">WEB</span>
-                            <div class="text-xl font-medium">React <br> Next.js <br> Tailwind</div>
-                        </div>
-                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
-                            <span class="font-mono text-xs text-accent block mb-4">BACK</span>
-                            <div class="text-xl font-medium">Node <br> Express <br> Mongo</div>
-                        </div>
-                        <div class="p-6 bg-white/5 rounded-xl border border-white/5">
-                            <span class="font-mono text-xs text-accent block mb-4">TOOLS</span>
-                            <div class="text-xl font-medium">Git <br> GitHub <br> Postman</div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Footer -->
-                <footer id="contact" class="pb-12">
-                    <div class="relative bg-white/5 rounded-[2rem] p-8 md:p-24 overflow-hidden text-center group">
-                        <div
-                            class="absolute inset-0 bg-accent/20 scale-y-0 group-hover:scale-y-100 transition-transform duration-700 origin-bottom ease-[cubic-bezier(0.22,1,0.36,1)]">
-                        </div>
-
-                        <div class="relative z-10">
-                            <h2 class="text-5xl md:text-8xl font-bold uppercase mb-8">Let's Talk</h2>
-                            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-12">
-                                <a href="mailto:singhayush.sa81@gmail.com"
-                                    class="px-8 py-3 bg-[#E8E8E3] text-dark rounded-full font-bold uppercase hover:scale-105 transition-transform">Email
-                                    Me</a>
-                                <a href="https://linkedin.com/in/ayush-kumar-singh-677388250/" target="_blank"
-                                    class="px-8 py-3 border border-white/20 rounded-full font-bold uppercase hover:bg-white/10 transition-colors">LinkedIn</a>
-                            </div>
-
-                            <!-- Additional Socials -->
-                            <div class="flex flex-wrap justify-center gap-8 mb-16">
-                                <!-- GitHub -->
-                                <a href="https://github.com/trex-ayush" target="_blank"
-                                    class="group flex items-center gap-2 text-secondary hover:text-accent transition-colors">
-                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-                                    </svg>
-                                    <span class="font-mono text-sm uppercase tracking-wider">GitHub</span>
-                                </a>
-
-                                <!-- LeetCode -->
-                                <a href="https://leetcode.com/ayushsingh03" target="_blank"
-                                    class="group flex items-center gap-2 text-secondary hover:text-[#FFA116] transition-colors">
-                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.843 5.843 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
-                                    </svg>
-                                    <span class="font-mono text-sm uppercase tracking-wider">LeetCode</span>
-                                </a>
-
-                                <!-- GeeksForGeeks (Simple code icon representation or G) -->
-                                <a href="https://auth.geeksforgeeks.org/user/singhayul1ly/" target="_blank"
-                                    class="group flex items-center gap-2 text-secondary hover:text-[#2F8D46] transition-colors">
-                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm-1 16H9v-2h2v2zm-2-5H6v-2h3v2zm5-1v2h-1v-2h1zm-1-3h-2V5h2v2zm4 4h-3v-2h3v2zm-4 5h-2v-2h2v2z" />
-                                    </svg>
-                                    <span class="font-mono text-sm uppercase tracking-wider">GFG</span>
-                                </a>
-                            </div>
-
-                            <div class="font-mono text-xs text-secondary uppercase">
-                                © 2026 Ayush Kumar Singh
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-
+                </div>
             </div>
         </div>
 
+        <!-- ====== CONTACT : final CTA on yellow ====== -->
+        <section id="contact" class="relative overflow-hidden bg-postit border-b-[2.5px] border-ink">
+            <div class="doodle absolute top-8 left-[7%] w-[90px] h-[90px] border-[3px] border-dashed border-ink rounded-full"
+                aria-hidden="true"></div>
+            <div class="doodle absolute bottom-6 right-[9%] w-0 h-0 rotate-[16deg]"
+                style="border-left:34px solid transparent;border-right:34px solid transparent;border-bottom:56px solid #E5484D;"
+                aria-hidden="true"></div>
+            <svg class="doodle absolute top-14 right-[18%] hidden md:block" width="140" height="90" viewBox="0 0 140 90"
+                aria-hidden="true">
+                <path d="M6,10 C 40,70 90,20 130,76" fill="none" stroke="#3B6FE0" stroke-width="3.5"
+                    stroke-linecap="round" stroke-dasharray="2 11" />
+                <path d="M130,76 l-16,-3 M130,76 l-1,-16" fill="none" stroke="#3B6FE0" stroke-width="3.5"
+                    stroke-linecap="round" />
+            </svg>
+
+            <div class="relative mx-auto max-w-3xl px-5 py-16 text-center">
+                <div class="scrawl inline-block text-sm -rotate-2 mb-1.5">~ last page ~</div>
+                <h2 class="text-5xl md:text-7xl leading-[.95] mb-3">Got something that needs<br>building — or breaking?</h2>
+                <p class="hand text-lg text-[#4a463d] max-w-lg mx-auto mb-8">
+                    Payments, auth, a webhook that misbehaves at 2am — drop a note below and I'll write back.
+                </p>
+
+                <!-- Formspree handles delivery + spam protection; plain POST so the
+                     built-in CAPTCHA challenge page works without any extra JS -->
+                <form class="paper wob1 shadow-ink relative p-6 md:p-8 text-left -rotate-[.5deg]"
+                    action="https://formspree.io/f/mbdnogvo" method="POST">
+                    <div class="tape" style="top:-14px;left:50%;margin-left:-54px;transform:rotate(-5deg);"></div>
+                    <div class="scrawl text-sm text-accent -rotate-2">~ note slip ~</div>
+                    <h3 class="text-3xl md:text-4xl mt-0.5 mb-4">Leave me a note ✎</h3>
+
+                    <input type="hidden" name="_subject" value="New note from the portfolio ✎">
+                    <!-- honeypot: bots fill it, humans never see it -->
+                    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"
+                        style="position:absolute;left:-9999px;" aria-hidden="true">
+
+                    <div class="grid md:grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <label class="co-lab" for="c-name">Your name *</label>
+                            <input class="co-in" id="c-name" name="name" placeholder="Jane Doe" required>
+                        </div>
+                        <div>
+                            <label class="co-lab" for="c-mail">Your email *</label>
+                            <input class="co-in" id="c-mail" name="email" type="email" placeholder="you@company.com"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="co-lab" for="c-note">The note *</label>
+                        <textarea class="co-in" id="c-note" name="note" rows="4"
+                            placeholder="I have an idea and it involves webhooks..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-red wob3 shadow-ink-sm w-full md:w-auto text-xl px-8">
+                        Send it ✦</button>
+                </form>
+
+                <div class="hand flex flex-wrap justify-center gap-x-4 gap-y-3 mt-8 text-sm">
+                    <a href="mailto:singhayush.sa81@gmail.com" class="chip shadow-ink-sm -rotate-1 no-underline text-ink">
+                        <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        singhayush.sa81@gmail.com</a>
+                    <a href="tel:+919305454214" class="chip shadow-ink-sm rotate-1 no-underline text-ink">
+                        <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        +91 93054 54214</a>
+                    <a href="https://github.com/trex-ayush" target="_blank" class="chip shadow-ink-sm -rotate-1 no-underline text-ink">
+                        <svg class="ico-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        GitHub</a>
+                    <a href="https://linkedin.com/in/ayush-kumar-singh-677388250/" target="_blank"
+                        class="chip shadow-ink-sm rotate-1 no-underline text-ink">
+                        <svg class="ico-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        LinkedIn</a>
+                    <a href="https://leetcode.com/ayushsingh03" target="_blank" class="chip shadow-ink-sm -rotate-1 no-underline text-ink">
+                        <svg class="ico-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.843 5.843 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
+                        LeetCode</a>
+                    <a href="./AyushKumarSingh.pdf" data-resume-open
+                        class="chip shadow-ink-sm rotate-1 no-underline text-ink bg-postit">
+                        <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                        Resume</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Scripts -->
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <!-- Lenis -->
-    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <!-- ====== FOOTER ====== -->
+    <footer class="bg-ink text-paper">
+        <div class="mx-auto max-w-5xl px-5 py-8 flex items-center justify-between flex-wrap gap-4">
+            <div class="flex items-center gap-2.5">
+                <span class="w-[18px] h-[18px] rounded-full bg-accent border-[2.5px] border-paper"></span>
+                <span class="w-[18px] h-[18px] bg-pen border-[2.5px] border-paper rotate-12"></span>
+                <span class="w-0 h-0 ml-0.5"
+                    style="border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:18px solid #FFE066;"></span>
+                <span class="font-display text-2xl font-bold ml-1.5">Ayush Kumar Singh</span>
+            </div>
+            <div class="hand text-[13px] text-[#b5b0a4]">✦ 2026 · drawn by hand (mostly) · Bhopal, India</div>
+        </div>
+    </footer>
+
+    <!-- ====== SCROLL TO TOP ====== -->
+    <button id="to-top" type="button" aria-label="Scroll back to top" title="Back to top">↑</button>
+
+    <!-- ====== RESUME MODAL ====== -->
+    <div id="resume-modal" class="fixed inset-0 z-[90] hidden items-center justify-center p-3 md:p-6"
+        role="dialog" aria-modal="true" aria-label="Resume — Ayush Kumar Singh">
+        <!-- backdrop -->
+        <div id="resume-backdrop" class="absolute inset-0 bg-ink/70"
+            style="background-image:radial-gradient(rgba(255,255,255,.05) 1.1px, transparent 1.1px);background-size:24px 24px;">
+        </div>
+
+        <div class="paper wob-sm shadow-ink relative w-full max-w-3xl max-h-full flex flex-col -rotate-[.4deg]">
+            <div class="tape" style="top:-15px;left:50%;margin-left:-54px;transform:rotate(-5deg);"></div>
+
+            <!-- modal header -->
+            <div class="flex items-center justify-between gap-3 px-4 md:px-6 py-3 border-b-2 border-dashed border-[#c7c0ad]">
+                <div class="min-w-0">
+                    <div class="scrawl text-[12px] text-accent -rotate-1">~ the official papers ~</div>
+                    <h3 class="text-2xl md:text-3xl leading-none truncate">Resume ✎</h3>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <a href="./AyushKumarSingh.pdf" download="AyushKumarSingh-Resume.pdf"
+                        class="btn btn-yellow wob-sm shadow-ink-sm !min-h-0 !py-1.5 !px-4 text-base">
+                        <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>Download</a>
+                    <button id="resume-close" type="button" aria-label="Close resume"
+                        class="btn wob-sm-alt shadow-ink-sm !min-h-0 !py-1.5 !px-3 text-lg leading-none">✕</button>
+                </div>
+            </div>
+
+            <!-- pdf viewer (src set lazily on first open) -->
+            <div class="flex-1 min-h-0 p-2 md:p-3">
+                <iframe id="resume-frame" title="Resume PDF — Ayush Kumar Singh" data-src="./AyushKumarSingh.pdf"
+                    class="w-full border-2 border-ink bg-white" style="height:min(72vh,900px);"></iframe>
+                <p class="hand text-center text-[13px] text-[#8a857a] mt-2 mb-1">
+                    PDF not showing? (some phones refuse) —
+                    <a href="./AyushKumarSingh.pdf" download="AyushKumarSingh-Resume.pdf"
+                        class="wavy-link text-pen">download it instead</a>.
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // 1. Initialize Lenis Smooth Scroll
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            smooth: true
-        });
+        // ---------- Page loader ----------
+        (function () {
+            const loader = document.getElementById('loader');
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            document.body.style.overflow = 'hidden';
+            let lifted = false;
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Connect Lenis to ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
-
-        // 2. Initial Loader & Hero Animation
-        const tl = gsap.timeline();
-
-        // Stagger characters in Loader then clear it
-        tl.to('.loader-overlay', {
-            yPercent: -150,
-            borderBottomLeftRadius: '50% 30%',
-            borderBottomRightRadius: '50% 30%',
-            duration: 1, // Slightly smoother for the curve
-            ease: "power4.inOut",
-            delay: 0.2,
-            onComplete: () => {
-                document.querySelector('.loader-overlay').style.display = 'none';
+            function lift() {
+                if (lifted) return;
+                lifted = true;
+                loader.classList.add('done');
+                document.body.classList.add('loaded');  // hero stagger starts
+                document.body.style.overflow = '';
+                setTimeout(() => loader.remove(), 800);
             }
-        });
 
-        // Animate Hero Text (Characters)
-        tl.to('#hero-first span', {
-            y: 0,
-            opacity: 1,
-            stagger: 0.05,
-            duration: 1,
-            ease: "power4.out"
-        }, "-=0.6");
+            if (reduce) { lift(); return; }
+            // naam likhna (~2s) + underline (~.5s) poora dikhe, phir parda uthe
+            const start = performance.now();
+            window.addEventListener('load', () => {
+                const wait = Math.max(0, 2650 - (performance.now() - start));
+                setTimeout(lift, wait);
+            });
+            setTimeout(lift, 3800); // safety: load event atke to bhi page khul jaye
+        })();
 
-        tl.to('#hero-last span', {
-            y: 0,
-            opacity: 1,
-            stagger: 0.05,
-            duration: 1,
-            ease: "power4.out"
-        }, "-=0.8");
+        // ---------- Resume modal ----------
+        (function () {
+            const modal = document.getElementById('resume-modal');
+            const frame = document.getElementById('resume-frame');
+            const closeBtn = document.getElementById('resume-close');
+            const backdrop = document.getElementById('resume-backdrop');
+            let lastFocus = null;
 
-        // Animate Hero Image and Meta
-        tl.to('#hero-image', {
-            scale: 1,
-            opacity: 1,
-            duration: 1.5,
-            ease: "expo.out"
-        }, "-=0.8");
+            function openModal(e) {
+                e.preventDefault();
+                lastFocus = document.activeElement;
+                if (!frame.src) frame.src = frame.dataset.src; // lazy-load the PDF once
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
+            }
 
-        tl.to('.hero-meta', {
-            opacity: 0.6,
-            y: 0,
-            duration: 1,
-        }, "-=0.8");
+            function closeModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+                if (lastFocus) lastFocus.focus();
+            }
 
-        tl.to('.header-item', {
-            opacity: 1,
-            y: 0,
-            stagger: 0.1
-        }, "-=0.8");
+            document.querySelectorAll('[data-resume-open]').forEach(el =>
+                el.addEventListener('click', openModal));
 
+            // Force-download: fetch as blob so the browser saves the file instead
+            // of navigating to its PDF viewer (some setups ignore the download attr).
+            document.querySelectorAll('a[download]').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    fetch(link.href)
+                        .then(r => r.blob())
+                        .then(blob => {
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = link.getAttribute('download') || 'resume.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            URL.revokeObjectURL(url);
+                        })
+                        // file:// pe fetch block ho sakta hai — tab normal navigation
+                        .catch(() => { window.location.href = link.href; });
+                });
+            });
+            closeBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+            });
+        })();
 
-        // 3. Sticky Number Tape Logic
+        // ---------- Scroll to top ----------
+        (function () {
+            const btn = document.getElementById('to-top');
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.addEventListener('scroll', () => {
+                btn.classList.toggle('show', window.scrollY > 600);
+            }, { passive: true });
+            btn.addEventListener('click', () =>
+                window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+        })();
 
-        const projects = document.querySelectorAll('.project-item');
-        const tape = document.getElementById('number-tape');
+        // ---------- Mobile menu ----------
+        (function () {
+            const btn = document.getElementById('menu-btn');
+            const panel = document.getElementById('menu-panel');
+            btn.addEventListener('click', () => {
+                const open = panel.classList.toggle('hidden') === false;
+                btn.setAttribute('aria-expanded', open);
+            });
+            panel.querySelectorAll('.menu-link').forEach(a =>
+                a.addEventListener('click', () => {
+                    panel.classList.add('hidden');
+                    btn.setAttribute('aria-expanded', 'false');
+                }));
+        })();
 
-        // Fix: logic was doing -100% of the *entire tape height*. 
-        // We want -100% of *one item's height* (which is 1/total * 100 percent of total height).
-        const step = 100 / projects.length;
-
-        projects.forEach((wb, i) => {
-            ScrollTrigger.create({
-                trigger: wb,
-                start: "top 60%",
-                end: "bottom 60%",
-                onEnter: () => {
-                    gsap.to(tape, {
-                        yPercent: -i * step,
-                        duration: 0.4,
-                        ease: "power3.out",
-                        overwrite: true
-                    });
-                },
-                onEnterBack: () => {
-                    gsap.to(tape, {
-                        yPercent: -i * step,
-                        duration: 0.4,
-                        ease: "power3.out",
-                        overwrite: true
-                    });
-                }
+        // Graceful placeholder: until the real sketches exist, swap a broken <img>
+        // for a doodled panel so the layout never shows a torn-image icon.
+        document.querySelectorAll('img[data-fallback]').forEach(img => {
+            img.addEventListener('error', () => {
+                const box = document.createElement('div');
+                box.className = 'grayimg';
+                box.style.cssText =
+                    'display:flex;flex-direction:column;align-items:center;justify-content:center;' +
+                    'height:100%;background:repeating-linear-gradient(45deg,#f2ecdd,#f2ecdd 12px,#ece5d3 12px,#ece5d3 24px);' +
+                    'color:#8a857a;filter:none;';
+                box.setAttribute('role', 'img');
+                box.setAttribute('aria-label', img.alt);
+                box.innerHTML =
+                    '<span style="font-size:52px;line-height:1;">' + img.dataset.fallback + '</span>' +
+                    '<span class="scrawl" style="margin-top:10px;font-size:13px;">sketch coming soon</span>';
+                img.replaceWith(box);
             });
         });
-
-        // 4. Parallax Effect for Images
-        // Modified to animate the image inside the container to avoid overlapping the text
-        projects.forEach(project => {
-            const img = project.querySelector('.parallax-img');
-            if (img) {
-                gsap.fromTo(img,
-                    { scale: 1.1, yPercent: -10 },
-                    {
-                        yPercent: 10,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: project,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: true
-                        }
-                    }
-                );
-            }
-        });
-
-        // Refresh ScrollTrigger with Lenis
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-        gsap.ticker.lagSmoothing(0);
-
-        // 5. Mobile Menu Logic
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const closeBtn = document.getElementById('mobile-menu-close');
-        const menuOverlay = document.getElementById('mobile-menu-overlay');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        function toggleMenu(show) {
-            if (show) {
-                lenis.stop();
-                menuOverlay.style.pointerEvents = 'auto';
-
-                // Slide in from right
-                gsap.fromTo(menuOverlay,
-                    { opacity: 0, xPercent: 100 },
-                    { opacity: 1, xPercent: 0, duration: 0.5, ease: "power3.out" }
-                );
-
-                // Stagger animate links
-                gsap.fromTo(mobileLinks,
-                    { x: 40, opacity: 0 },
-                    { x: 0, opacity: 1, stagger: 0.08, duration: 0.6, ease: "power3.out", delay: 0.2 }
-                );
-            } else {
-                lenis.start();
-
-                // Slide out to right
-                gsap.to(menuOverlay, {
-                    opacity: 0,
-                    xPercent: 100,
-                    duration: 0.4,
-                    ease: "power3.in",
-                    onComplete: () => {
-                        menuOverlay.style.pointerEvents = 'none';
-                    }
-                });
-            }
-        }
-
-        menuBtn.addEventListener('click', () => toggleMenu(true));
-        closeBtn.addEventListener('click', () => toggleMenu(false));
-
-        // Close menu when a link is clicked
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => toggleMenu(false));
-        });
-
     </script>
 </body>
 
