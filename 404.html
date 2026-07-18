@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page not found | Ayush Kumar Singh</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@400;700&family=Patrick+Hand&family=Gloria+Hallelujah&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --paper: #FBF7EC;
+            --sheet: #FFFEF8;
+            --ink: #2B2A28;
+            --accent: #E5484D;
+            --pen: #3B6FE0;
+            --postit: #FFE066;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            padding: 24px;
+            font-family: 'Kalam', cursive;
+            color: var(--ink);
+            background: var(--paper);
+            background-image: radial-gradient(#ded7c2 1.1px, transparent 1.1px);
+            background-size: 26px 26px;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        ::selection { background: var(--postit); }
+
+        .hand { font-family: 'Patrick Hand', cursive; }
+        .scrawl { font-family: 'Gloria Hallelujah', cursive; }
+
+        /* ---- the torn-out page card ---- */
+        .card {
+            position: relative;
+            max-width: 560px;
+            width: 100%;
+            background: var(--sheet);
+            border: 2.5px solid var(--ink);
+            border-radius: 14px 220px 16px 210px / 210px 16px 220px 18px;
+            box-shadow: 7px 8px 0 0 var(--ink);
+            padding: 44px 28px 36px;
+            transform: rotate(-1deg);
+        }
+
+        .tack {
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            margin-left: -10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 34% 30%, #ff9fb1, #d6435c 62%, #a32f44);
+            box-shadow: 1px 3px 4px rgba(0, 0, 0, .32);
+        }
+
+        .kicker {
+            font-size: 14px;
+            color: var(--pen);
+            display: inline-block;
+            transform: rotate(-2deg);
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-weight: 700;
+            font-size: clamp(96px, 24vw, 150px);
+            line-height: .85;
+            margin: 6px 0 4px;
+        }
+
+        h1 .zero {
+            display: inline-block;
+            color: var(--accent);
+            rotate: 8deg;
+        }
+
+        .msg { font-size: 21px; margin: 10px 0 4px; }
+
+        .sub {
+            font-size: 16px;
+            color: #6b665c;
+            margin: 0 0 26px;
+        }
+
+        .btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .btn {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 26px;
+            border: 2.5px solid var(--ink);
+            background: var(--sheet);
+            color: var(--ink);
+            text-decoration: none;
+            border-radius: 30px 180px 28px 200px / 200px 26px 190px 30px;
+            box-shadow: 4px 5px 0 0 var(--ink);
+            transition: transform .1s, box-shadow .1s;
+        }
+
+        .btn:hover { transform: translate(-1px, -2px); }
+        .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 0 var(--ink); }
+        .btn-red { background: var(--accent); color: #fff; }
+
+        .squiggle { display: block; margin: 2px auto 0; }
+
+        /* ---- doodles ---- */
+        .doodle { position: fixed; pointer-events: none; }
+
+        .circle {
+            top: 9%;
+            right: 8%;
+            width: 84px;
+            height: 84px;
+            border: 3px dashed var(--pen);
+            border-radius: 50%;
+            animation: floaty 5s ease-in-out infinite;
+        }
+
+        .tri {
+            bottom: 7%;
+            left: 8%;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 50px solid var(--accent);
+            transform: rotate(-14deg);
+            opacity: .9;
+        }
+
+        @keyframes floaty {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .foot {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 13px;
+            color: #8a857a;
+        }
+
+        a:focus-visible, .btn:focus-visible { outline: 3px dashed var(--pen); outline-offset: 3px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .circle { animation: none; }
+            * { transition-duration: .01ms !important; }
+        }
+
+        @media (max-width: 480px) {
+            .circle, .tri { display: none; }
+            .card { padding: 36px 18px 30px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <span class="doodle circle" aria-hidden="true"></span>
+    <span class="doodle tri" aria-hidden="true"></span>
+
+    <main class="card">
+        <span class="tack" aria-hidden="true"></span>
+
+        <span class="scrawl kicker">~ uh oh ~</span>
+        <h1>4<span class="zero">0</span>4</h1>
+
+        <svg class="squiggle" width="210" height="16" viewBox="0 0 210 16" aria-hidden="true">
+            <path d="M4 9 C 48 2, 85 14, 118 7 S 180 2, 206 9" fill="none" stroke="#E5484D" stroke-width="3.5"
+                stroke-linecap="round" />
+        </svg>
+
+        <p class="hand msg">This page tore out of my sketchbook. ✏️</p>
+        <p class="hand sub">The link might be old, mistyped — or I erased it and forgot to redraw it.</p>
+
+        <div class="btns">
+            <a href="/" class="btn btn-red">Back to the sketchbook ✦</a>
+            <a href="/#projects" class="btn">See my projects</a>
+        </div>
+    </main>
+
+    <p class="foot">✎ Ayush Kumar Singh · lost page № 404</p>
+
+</body>
+
+</html>
