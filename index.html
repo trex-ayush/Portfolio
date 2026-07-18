@@ -894,7 +894,7 @@
 
                 <!-- Formspree handles delivery + spam protection; plain POST so the
                      built-in CAPTCHA challenge page works without any extra JS -->
-                <form class="paper wob1 shadow-ink relative p-6 md:p-8 text-left -rotate-[.5deg]"
+                <form id="contact-form" class="paper wob1 shadow-ink relative p-6 md:p-8 text-left -rotate-[.5deg]"
                     action="https://formspree.io/f/mbdnogvo" method="POST">
                     <div class="tape" style="top:-14px;left:50%;margin-left:-54px;transform:rotate(-5deg);"></div>
                     <div class="scrawl text-sm text-accent -rotate-2">~ note slip ~</div>
@@ -923,6 +923,10 @@
                     </div>
                     <button type="submit" class="btn btn-red wob3 shadow-ink-sm w-full md:w-auto text-xl px-8">
                         Send it ✦</button>
+                    <p id="form-error" class="hand hidden mt-3 text-accent text-base m-0">
+                        Hmm, that didn't send — try once more, or just
+                        <a href="mailto:singhayush.sa81@gmail.com" class="wavy-link underline">email me directly</a>.
+                    </p>
                 </form>
 
                 <div class="hand flex flex-wrap justify-center gap-x-4 gap-y-3 mt-8 text-sm">
@@ -1091,6 +1095,44 @@
             backdrop.addEventListener('click', closeModal);
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+            });
+        })();
+
+        // ---------- Contact form (AJAX — visitor stays on the page) ----------
+        (function () {
+            const form = document.getElementById('contact-form');
+            const err = document.getElementById('form-error');
+
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                err.classList.add('hidden');
+                const btn = form.querySelector('button[type="submit"]');
+                btn.disabled = true;
+                btn.textContent = 'Sending... ✎';
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .then(r => {
+                        if (!r.ok) throw new Error('send failed');
+                        // form ki jagah wahi card me success note
+                        form.innerHTML =
+                            '<div class="tape" style="top:-14px;left:50%;margin-left:-54px;transform:rotate(-5deg);"></div>' +
+                            '<div class="text-center py-6">' +
+                            '<div class="scrawl text-sm text-pen rotate-1">~ delivered ~</div>' +
+                            '<h3 class="text-4xl md:text-5xl mt-1 mb-2">Note sent! <span class="text-accent">✓</span></h3>' +
+                            '<p class="hand text-lg text-[#6b665c] m-0">Got it — I\'ll write back soon.</p>' +
+                            '<svg class="doodle block mx-auto mt-3" width="200" height="16" viewBox="0 0 200 16">' +
+                            '<path d="M4 9 C 45 2, 80 13, 110 7 S 170 2, 196 8" fill="none" stroke="#B8E986" stroke-width="3.5" stroke-linecap="round"/></svg>' +
+                            '</div>';
+                    })
+                    .catch(() => {
+                        err.classList.remove('hidden');
+                        btn.disabled = false;
+                        btn.textContent = 'Send it ✦';
+                    });
             });
         })();
 
